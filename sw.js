@@ -1,6 +1,6 @@
 // Service worker de Momentos en Familia: guarda la app para que abra rápido e incluso sin señal.
 // Los datos (Apps Script) siempre se piden por internet.
-var CACHE = 'momentos-v1';
+var CACHE = 'momentos-v3';
 var ARCHIVOS = ['./', 'index.html', 'manifest.webmanifest', 'config.js',
   'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png', 'icons/apple-touch-icon.png'];
 

@@ -152,6 +152,22 @@ nav .centro[aria-current=page] span.bola{background:var(--sol);color:var(--tinta
 .beneficio{display:flex;gap:14px;align-items:center}
 .beneficio .circulo{width:44px;height:44px;border-radius:14px;background:var(--blanco);box-shadow:var(--sombra);display:flex;align-items:center;justify-content:center;color:var(--selva);flex:none}
 .marca{display:flex;align-items:center;gap:8px;font-family:var(--titulo);font-weight:600;color:var(--selva)}
+/* Perfil familiar */
+.av{border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-family:var(--titulo);font-weight:600;flex:none;overflow:hidden;background:var(--hoja)}
+.av img{width:100%;height:100%;object-fit:cover;display:block}
+.avatares{display:flex;align-items:center;background:none;padding:0;min-height:44px}
+.avatares .av{border:3px solid var(--crema);margin-left:-12px}
+.avatares .av:first-child{margin-left:0}
+.foto-edit{position:relative;background:none;padding:0;min-height:auto;border-radius:50%}
+.foto-edit .cam{position:absolute;right:-2px;bottom:-2px;width:34px;height:34px;border-radius:50%;background:var(--selva);color:#fff;display:flex;align-items:center;justify-content:center;border:3px solid var(--blanco)}
+.integrante{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--linea)}
+.integrante:last-child{border-bottom:0}
+.integrante .datos{flex:1;min-width:0}
+.icono-btn{width:44px;height:44px;min-height:44px;padding:0;border-radius:12px;background:var(--menta);color:var(--selva-osc)}
+.icono-btn.peligro{background:#F7E1D7;color:var(--tierra-txt)}
+.sync{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--gris)}
+.sync .punto{width:8px;height:8px;border-radius:50%;background:var(--sol)}
+input[type=file].oculto-file{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
 </style>
 </head>
 <body>
@@ -163,13 +179,17 @@ nav .centro[aria-current=page] span.bola{background:var(--sol);color:var(--tinta
 
 <script>
 /* =========================================================
-   Momentos en Familia · Prototipo final · Grupo 1 UTP
+   Momentos en Familia · Prototipo final (v3) · Grupo 1 UTP
+   Perfil familiar con fotos · calendario del celular · modo rápido
    ========================================================= */
 var BANCO_BASE = [{"id": "A01", "nombre": "Cena sin celulares con la baraja de preguntas", "vinculo": "Toda la familia", "minutos": 25, "duracion": "20–30 min", "edadMin": 3, "edadMax": 99, "costo": "S/ 0", "materiales": "Baraja de preguntas impresa y una caja para los celulares", "pasos": ["Todos dejan el celular en la caja antes de sentarse.", "Cada uno saca una tarjeta y responde la pregunta.", "Escuchen sin interrumpir: no hay respuestas malas."], "frecuencia": "3 veces por semana", "grupoFoco": "G1 · P2 Desconexión", "ilus": "cena"}, {"id": "A02", "nombre": "Cocinar juntos un plato de la región", "vinculo": "Toda la familia", "minutos": 40, "duracion": "30–45 min", "edadMin": 4, "edadMax": 99, "costo": "Ingredientes de casa", "materiales": "Tacacho, juane o una ensalada de frutas", "pasos": ["Elijan juntos el plato: tacacho, juane o ensalada de frutas.", "Cada uno tiene una tarea según su edad (lavar, mezclar, servir).", "Conversen mientras cocinan y coman juntos lo que prepararon."], "frecuencia": "1 vez por semana", "grupoFoco": "G2 · P1 Tareas compartidas", "ilus": "cocina"}, {"id": "A03", "nombre": "Salida verde: parque, río o mirador", "vinculo": "Toda la familia", "minutos": 30, "duracion": "30 min", "edadMin": 0, "edadMax": 99, "costo": "S/ 0", "materiales": "Agua y un solo celular para fotos", "pasos": ["Paseo corto por el parque, la orilla del río o un mirador.", "Sin celulares (o solo uno para fotos).", "Jueguen “Veo, veo” o busquen algo de cada color."], "frecuencia": "Fin de semana", "grupoFoco": "G4 · P6 Aire libre", "ilus": "rio"}, {"id": "A04", "nombre": "Noche de juegos de mesa o tradicionales", "vinculo": "Toda la familia", "minutos": 30, "duracion": "30 min", "edadMin": 4, "edadMax": 99, "costo": "S/ 0", "materiales": "Naipes, ludo o juegos caseros", "pasos": ["Los hijos eligen el juego.", "Celulares en “no molestar” o en la canasta.", "Gana quien… ¡ayude a guardar todo!"], "frecuencia": "1 vez por semana", "grupoFoco": "G1 · M9 Juego en familia", "ilus": "juegos"}, {"id": "A05", "nombre": "Cafecito de 15 minutos", "vinculo": "Papá y mamá", "minutos": 15, "duracion": "15 min", "edadMin": 0, "edadMax": 99, "costo": "S/ 0", "materiales": "Café o infusión", "pasos": ["Después de que los hijos duermen, siéntense juntos.", "Pregunta guía: “¿Qué fue lo mejor y lo más difícil de tu día?”", "Hablen de cómo se sintieron, no de pendientes."], "frecuencia": "3 veces por semana", "grupoFoco": "G4 Bienestar emocional", "ilus": "cafe"}, {"id": "A06", "nombre": "Planificar juntos la semana familiar", "vinculo": "Papá y mamá", "minutos": 15, "duracion": "15 min", "edadMin": 0, "edadMax": 99, "costo": "S/ 0", "materiales": "Esta app o una agenda por colores", "pasos": ["Cada domingo acuerden la hora de cierre de cada uno.", "Repartan las tareas del hogar de la semana.", "Elijan 3 actividades del banco para la semana."], "frecuencia": "Domingo", "grupoFoco": "G2 · P7 Organización", "ilus": "agenda"}, {"id": "A07", "nombre": "Mini cita en casa o salida sencilla", "vinculo": "Papá y mamá", "minutos": 50, "duracion": "45–60 min", "edadMin": 0, "edadMax": 99, "costo": "S/ 0–10", "materiales": "Una película, un helado o una caminata", "pasos": ["Elijan un plan sencillo para los dos.", "Pidan a un familiar que cuide a los hijos o túrnense.", "Disfruten sin hablar de trabajo."], "frecuencia": "Cada 15 días", "grupoFoco": "G4 · G3", "ilus": "cita"}, {"id": "A08", "nombre": "Tarjeta de agradecimiento mutuo", "vinculo": "Papá y mamá", "minutos": 5, "duracion": "5 min", "edadMin": 0, "edadMax": 99, "costo": "S/ 0", "materiales": "Papel y lapicero", "pasos": ["Cada uno escribe algo que valoró del otro en la semana.", "Entréguense las tarjetas en un momento tranquilo."], "frecuencia": "1 vez por semana", "grupoFoco": "G4 Bienestar emocional", "ilus": "carta"}, {"id": "A09", "nombre": "Tiempo especial: tu hijo/a elige", "vinculo": "Mamá e hijo/a", "minutos": 15, "duracion": "15 min", "edadMin": 2, "edadMax": 10, "costo": "S/ 0", "materiales": "Lo que tu hijo/a elija", "pasos": ["Tu hijo/a elige el juego o la actividad.", "Síguelo sin corregir ni mirar el celular.", "Describe lo que hace: “estás construyendo una torre alta”."], "frecuencia": "3 veces por semana", "grupoFoco": "G1 · P3 Mirada atenta", "ilus": "especial"}, {"id": "A10", "nombre": "Leer un cuento o contar una historia de mamá", "vinculo": "Mamá e hijo/a", "minutos": 15, "duracion": "15 min", "edadMin": 2, "edadMax": 17, "costo": "S/ 0", "materiales": "Un libro o una historia de cuando eras niña", "pasos": ["Antes de dormir, lean un cuento o cuenta una historia tuya.", "Con hijos mayores: compartan una canción o video que le guste y conversen."], "frecuencia": "Antes de dormir", "grupoFoco": "G1 · M18 Calidad", "ilus": "cuento"}, {"id": "A11", "nombre": "Manualidad o dibujo juntos", "vinculo": "Mamá e hijo/a", "minutos": 20, "duracion": "20 min", "edadMin": 3, "edadMax": 12, "costo": "S/ 0–3", "materiales": "Papel y colores", "pasos": ["Dibujen juntos sin corregir.", "Pregúntale qué dibujó y por qué.", "Peguen el dibujo en el tablero familiar."], "frecuencia": "1 vez por semana", "grupoFoco": "G1 · M12 Tablero", "ilus": "dibujo"}, {"id": "A12", "nombre": "Juego activo: pelota, vóley o fulbito", "vinculo": "Papá e hijo/a", "minutos": 25, "duracion": "20–30 min", "edadMin": 5, "edadMax": 17, "costo": "S/ 0", "materiales": "Una pelota", "pasos": ["Vayan al patio, la losa o el parque.", "Tu hijo/a pone las reglas del juego.", "Lo importante es jugar juntos, no ganar."], "frecuencia": "2 veces por semana", "grupoFoco": "G1 · P6 Movimiento", "ilus": "pelota"}, {"id": "A13", "nombre": "Enseñar un oficio o habilidad", "vinculo": "Papá e hijo/a", "minutos": 20, "duracion": "20 min", "edadMin": 6, "edadMax": 17, "costo": "S/ 0", "materiales": "Herramientas de casa o una planta", "pasos": ["Elige algo que sepas hacer: arreglar algo o sembrar una planta.", "Cuéntale cómo lo aprendiste tú.", "Déjalo hacerlo con sus manos."], "frecuencia": "1 vez por semana", "grupoFoco": "G1 · G3", "ilus": "planta"}, {"id": "A14", "nombre": "Conversación de camino", "vinculo": "Papá e hijo/a", "minutos": 10, "duracion": "10 min", "edadMin": 4, "edadMax": 17, "costo": "S/ 0", "materiales": "Nada", "pasos": ["Aprovechen el camino al colegio o a la tienda.", "Pregunta del día: “¿Qué te hizo reír hoy?”"], "frecuencia": "Diario", "grupoFoco": "G2 · P3 Conversación", "ilus": "camino"}, {"id": "A15", "nombre": "Reto cooperativo entre hermanos", "vinculo": "Hermanos", "minutos": 15, "duracion": "15 min", "edadMin": 4, "edadMax": 14, "costo": "S/ 0", "materiales": "Bloques, un rompecabezas o música para ordenar", "pasos": ["Propón un reto: armar algo juntos u ordenar con música.", "Los padres solo observan.", "Celebren el resultado."], "frecuencia": "2 veces por semana", "grupoFoco": "G2 · P9 Cada vínculo", "ilus": "reto"}, {"id": "A16", "nombre": "El mayor enseña algo al menor", "vinculo": "Hermanos", "minutos": 15, "duracion": "15 min", "edadMin": 4, "edadMax": 17, "costo": "S/ 0", "materiales": "Lo que el mayor quiera enseñar", "pasos": ["El hermano mayor elige algo que sabe hacer.", "Se lo enseña al menor con paciencia.", "Reconozcan el esfuerzo de los dos."], "frecuencia": "1 vez por semana", "grupoFoco": "G2 · P9 Cada vínculo", "ilus": "ensena"}, {"id": "A17", "nombre": "Tareas del hogar en equipo con música", "vinculo": "Toda la familia", "minutos": 20, "duracion": "20 min", "edadMin": 4, "edadMax": 99, "costo": "S/ 0", "materiales": "Música y el tablero de tareas", "pasos": ["Cada uno tiene una tarea según su edad (ver tablero).", "Pongan su música favorita.", "Al terminar, celebren con un baile o una merienda."], "frecuencia": "2 veces por semana", "grupoFoco": "G2 · P1 Tareas compartidas", "ilus": "musica"}, {"id": "A18", "nombre": "Pausa activa juntos", "vinculo": "Toda la familia", "minutos": 10, "duracion": "10–15 min", "edadMin": 2, "edadMax": 99, "costo": "S/ 0", "materiales": "Nada", "pasos": ["Al llegar del trabajo, estírense o bailen una canción.", "Jueguen “Simón dice”: se turnan para dirigir."], "frecuencia": "Diario", "grupoFoco": "G4 · M11 Pausa activa", "ilus": "pausa"}, {"id": "A19", "nombre": "Pausa personal sin culpa", "vinculo": "Autocuidado", "minutos": 20, "duracion": "15–20 min", "edadMin": 0, "edadMax": 99, "costo": "S/ 0", "materiales": "Lo que te relaje", "pasos": ["Camina, escucha música o descansa.", "La pareja o un familiar cuida a los hijos mientras tanto.", "Agéndala como cualquier otra actividad."], "frecuencia": "Diario", "grupoFoco": "G3 · P10 Mi espacio", "ilus": "caminar"}, {"id": "A20", "nombre": "Mi espacio: avanzar en una meta propia", "vinculo": "Autocuidado", "minutos": 30, "duracion": "30 min", "edadMin": 0, "edadMax": 99, "costo": "S/ 0", "materiales": "Tu curso, emprendimiento o hobby", "pasos": ["Agenda este tiempo en la app como un compromiso más.", "Acuerda con tu pareja o un familiar quién cubre ese tiempo.", "Avanza un paso pequeño en tu meta."], "frecuencia": "1 vez por semana", "grupoFoco": "G3 Realización personal", "ilus": "meta"}, {"id": "A21", "nombre": "Rutina de descanso: dormir a una hora fija", "vinculo": "Autocuidado", "minutos": 30, "duracion": "30 min antes de dormir", "edadMin": 0, "edadMax": 99, "costo": "S/ 0", "materiales": "Nada", "pasos": ["Apaga las pantallas 30 minutos antes de dormir.", "Piensa en 3 cosas buenas del día.", "Anota el pendiente de mañana y suéltalo."], "frecuencia": "Diario", "grupoFoco": "G4 · M13 Ritual de cierre", "ilus": "dormir"}, {"id": "A22", "nombre": "Respiración antes de entrar a casa", "vinculo": "Autocuidado", "minutos": 5, "duracion": "5 min", "edadMin": 0, "edadMax": 99, "costo": "S/ 0", "materiales": "Nada", "pasos": ["Antes de entrar, detente un momento.", "Inhala en 4 tiempos y exhala en 4 tiempos.", "Deja el trabajo afuera y entra presente."], "frecuencia": "Diario", "grupoFoco": "G4 · P11 Calma", "ilus": "respira"}];
 var DIAS = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
 var NOMBRE_DIA = { L: 'Lunes', M: 'Martes', X: 'Miércoles', J: 'Jueves', V: 'Viernes', S: 'Sábado', D: 'Domingo' };
 var RRULE_DIA = { L: 'MO', M: 'TU', X: 'WE', J: 'TH', V: 'FR', S: 'SA', D: 'SU' };
 var VINCULOS = ['Toda la familia', 'Papá y mamá', 'Mamá e hijo/a', 'Papá e hijo/a', 'Hermanos', 'Autocuidado'];
+var ROLES_TITULAR = ['Mamá', 'Papá', 'Abuela', 'Abuelo', 'Tía', 'Tío', 'Tutor/a'];
+var ROLES = ['Hija', 'Hijo', 'Mamá', 'Papá', 'Pareja', 'Abuela', 'Abuelo', 'Tía', 'Tío', 'Otro'];
+var COLORES_AV = ['#3FA66B', '#C8643F', '#D49A1A', '#3B97B8', '#1E6B45', '#8A5A34'];
 var NIVELES = [
   { min: 0, nombre: 'Semilla' }, { min: 1, nombre: 'Brote' }, { min: 3, nombre: 'Plantita' },
   { min: 7, nombre: 'Arbolito' }, { min: 14, nombre: 'Árbol de la selva' }
@@ -183,7 +203,7 @@ var TIPS = [
   'La selva está a pocos minutos: caminar al aire libre baja el estrés de todos.',
   'Ver el progreso motiva: registra tu día y mira crecer tu árbol.'
 ];
-var estado = { familia: null, actividades: [], menu: {}, resumen: null, filtro: { vinculo: null, tiempo: null, texto: '', edad: true }, vista: null };
+var estado = { filtro: { vinculo: null, tiempo: null, texto: '', edad: true }, vista: null };
 
 /* ---------------- Íconos (trazo) ---------------- */
 var IC = {
@@ -369,42 +389,82 @@ function cara(tipo) {
   return '<svg viewBox="0 0 56 56" width="52" height="52" aria-hidden="true"><circle cx="28" cy="28" r="26" fill="' + col + '"/>' + ojos + boca + (tipo === 2 ? '<path d="M14 17l8-4M42 17l-8-4" stroke="#1C2A21" stroke-width="2.5" stroke-linecap="round"/>' : '') + '</svg>';
 }
 
-/* ---------------- Servidor (Apps Script) o simulador local ---------------- */
+IC.camara = '<path d="M4 8.5A1.5 1.5 0 0 1 5.5 7h2l1.5-2h6l1.5 2h2A1.5 1.5 0 0 1 20 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 17.5Z"/><circle cx="12" cy="13" r="3.5"/>';
+IC.basura = '<path d="M4.5 7h15M9.5 7V4.5h5V7M6.5 7l1 13h9l1-13"/>';
+IC.nube = '<path d="M7 18.5a4.5 4.5 0 0 1-.6-8.96A6 6 0 0 1 18 9.5a4.5 4.5 0 0 1-.5 9Z"/>';
+
+/* =================== Datos guardados en el celular =================== */
+var K_DB = 'mef_db_v3', K_COLA = 'mef_cola_v3', K_FOTOS = 'mef_fotos_v3';
+function leerJSON(k, def) { try { var v = JSON.parse(localStorage.getItem(k)); return v == null ? def : v; } catch (e) { return def; } }
+function grabarJSON(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } }
+function leerLocal(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+var DB = leerJSON(K_DB, null) || { familia: null, actividades: null, menu: {}, registros: [], checkins: [], url: '' };
+var COLA = leerJSON(K_COLA, []);
+var FOTOS = leerJSON(K_FOTOS, {});
+function guardarDB() { grabarJSON(K_DB, DB); }
+function acts() { return (DB.actividades && DB.actividades.length) ? DB.actividades : BANCO_BASE; }
+function act(id) { return acts().filter(function (a) { return a.id === id; })[0]; }
+function fid() { return DB.familia ? DB.familia.familiaId : ''; }
+
+/* =================== Conexión con Apps Script =================== */
 var EN_APPS_SCRIPT = !!(window.google && google.script && google.script.run);
 var ES_PWA = false;
 var API_URL = (window.MEF_API_URL && /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec$/.test(window.MEF_API_URL)) ? window.MEF_API_URL : '';
-function servidor(fn) {
-  var args = Array.prototype.slice.call(arguments, 1);
+function hayServidor() { return !!(API_URL || EN_APPS_SCRIPT); }
+function llamar(fn, args) {
   return new Promise(function (ok, mal) {
     if (API_URL) {
-      fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ fn: fn, args: args }) })
+      fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ fn: fn, args: args || [] }) })
         .then(function (r) { return r.json(); })
-        .then(function (j) { if (j.ok) ok(j.data); else { avisar(j.error || 'No se pudo guardar.'); mal(j); } })
-        .catch(function (e) { avisar(navigator.onLine ? 'No se pudo conectar con el servidor. Intenta otra vez.' : 'Sin internet. Conéctate para guardar tus datos.'); mal(e); });
+        .then(function (j) { if (j.ok) ok(j.data); else mal(new Error(j.error || 'Error del servidor')); })
+        .catch(mal);
     } else if (EN_APPS_SCRIPT) {
-      var r = google.script.run.withSuccessHandler(ok).withFailureHandler(function (e) { avisar(e.message || 'No se pudo guardar. Revisa tu conexión.'); mal(e); });
-      r[fn].apply(r, args);
-    } else {
-      setTimeout(function () { try { ok(SIM[fn].apply(null, args)); } catch (e) { mal(e); } }, 120);
-    }
+      var r = google.script.run.withSuccessHandler(ok).withFailureHandler(mal);
+      r[fn].apply(r, args || []);
+    } else ok(null);
   });
 }
-function guardarLocal(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
-function leerLocal(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+// Cola: los cambios se ven al instante en la app y se envían a la hoja en segundo plano.
+var enviando = false, reintento = null;
+function enviar(fn) {
+  COLA.push({ fn: fn, args: Array.prototype.slice.call(arguments, 1), n: 0 });
+  grabarJSON(K_COLA, COLA); pintarSync(); procesarCola();
+}
+function procesarCola() {
+  if (enviando || !COLA.length) return pintarSync();
+  if (!hayServidor()) { COLA = []; grabarJSON(K_COLA, COLA); return pintarSync(); }
+  enviando = true;
+  var t = COLA[0];
+  llamar(t.fn, t.args).then(function () {
+    COLA.shift(); grabarJSON(K_COLA, COLA); enviando = false; pintarSync(); procesarCola();
+  }).catch(function () {
+    enviando = false; t.n = (t.n || 0) + 1;
+    if (t.n >= 8) COLA.shift();
+    grabarJSON(K_COLA, COLA); pintarSync();
+    clearTimeout(reintento); reintento = setTimeout(procesarCola, 15000);
+  });
+}
+window.addEventListener('online', procesarCola);
+function textoSync() {
+  if (!COLA.length) return '';
+  return '<span class="punto"></span>' + COLA.length + ' cambio' + (COLA.length === 1 ? '' : 's') + (navigator.onLine === false ? ' por enviar (sin internet)' : ' enviándose…');
+}
+function pintarSync() { var s = document.getElementById('sync'); if (s) s.innerHTML = textoSync(); }
 
-/* ---------------- Utilidades ---------------- */
+/* =================== Utilidades =================== */
 function $(s, r) { return (r || document).querySelector(s); }
 function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
 function esc(t) { return String(t == null ? '' : t).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
 function avisar(t) { var a = $('#aviso'); a.textContent = t; a.classList.add('ver'); clearTimeout(a._t); a._t = setTimeout(function () { a.classList.remove('ver'); }, 2600); }
 function ahora() { return new Date(); }
+function dosD(n) { return ('0' + n).slice(-2); }
+function fechaDe(d) { return d.getFullYear() + '-' + dosD(d.getMonth() + 1) + '-' + dosD(d.getDate()); }
+function fechaHoy() { return fechaDe(ahora()); }
 function diaHoy() { return DIAS[(ahora().getDay() + 6) % 7]; }
 function hora12(hhmm) { var p = String(hhmm || '19:00').split(':'), h = +p[0]; return ((h % 12) || 12) + ':' + (p[1] || '00') + (h < 12 ? ' a. m.' : ' p. m.'); }
 function minutosPara(hhmm) { var p = String(hhmm || '19:00').split(':'), n = ahora(), c = new Date(n); c.setHours(+p[0], +p[1] || 0, 0, 0); return Math.round((c - n) / 60000); }
 function saludo() { var h = ahora().getHours(); return h < 12 ? 'Buenos días' : h < 19 ? 'Buenas tardes' : 'Buenas noches'; }
-function edades() { return String(estado.familia && estado.familia.edades || '').split(',').map(function (x) { return parseInt(x, 10); }).filter(function (n) { return n >= 0; }); }
-function act(id) { return estado.actividades.filter(function (a) { return a.id === id; })[0]; }
-function aptaEdad(a) { var e = edades(); if (!e.length || a.vinculo === 'Papá y mamá' || a.vinculo === 'Autocuidado') return true; return e.some(function (x) { return x >= a.edadMin && x <= a.edadMax; }); }
+function nuevoId(p) { return (p || '') + Math.random().toString(36).slice(2, 8).toUpperCase(); }
 function nivelDe(total) { var n = 0; NIVELES.forEach(function (v, i) { if (total >= v.min) n = i; }); return n; }
 function meta(a) { return '<span class="badge">' + icono('reloj', ' style="width:14px;height:14px"') + esc(a.duracion) + '</span><span class="badge sol">' + esc(a.costo) + '</span>'; }
 function copiar(texto) {
@@ -412,17 +472,139 @@ function copiar(texto) {
   if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(texto).catch(viejo); else viejo();
   avisar('Mensaje copiado. Pégalo en tu respuesta automática.');
 }
-function linkCalendario() {
-  var f = estado.familia, p = String(f.horaCierre).split(':'), d = ahora();
-  var ini = new Date(d.getFullYear(), d.getMonth(), d.getDate(), +p[0], (+p[1] || 0) - 5);
-  var fin = new Date(ini.getTime() + 15 * 60000);
-  function fmt(x) { return x.getFullYear() + ('0' + (x.getMonth() + 1)).slice(-2) + ('0' + x.getDate()).slice(-2) + 'T' + ('0' + x.getHours()).slice(-2) + ('0' + x.getMinutes()).slice(-2) + '00'; }
+var MENSAJE_AUTO = 'Hola, gracias por escribir. Mi horario de atención terminó por hoy: estoy compartiendo con mi familia. Te respondo mañana desde las 8:00 a. m.';
+
+/* =================== Familia =================== */
+function titular() { return DB.familia ? DB.familia.titular : null; }
+function integrantes() { return DB.familia ? (DB.familia.integrantes || []) : []; }
+function todos() { return DB.familia ? [DB.familia.titular].concat(integrantes()) : []; }
+function esHijo(p) { return p.rol === 'Hija' || p.rol === 'Hijo' || (p.rol === 'Otro' && p.edad !== '' && +p.edad < 18); }
+function edades() { return integrantes().filter(esHijo).map(function (p) { return parseInt(p.edad, 10); }).filter(function (n) { return n >= 0; }); }
+function primerNombre(p) { return String((p || {}).nombre || '').trim().split(/\s+/)[0] || ''; }
+function inicialesDe(nombre) { return String(nombre || '').trim().split(/\s+/).slice(0, 2).map(function (w) { return w.charAt(0).toUpperCase() + '.'; }).join(' '); }
+function aptaEdad(a) { var e = edades(); if (!e.length || a.vinculo === 'Papá y mamá' || a.vinculo === 'Autocuidado') return true; return e.some(function (x) { return x >= a.edadMin && x <= a.edadMax; }); }
+function avatar(p, tam) {
+  tam = tam || 44;
+  var foto = FOTOS[p.id], i = Math.abs(String(p.id).split('').reduce(function (s, c) { return s + c.charCodeAt(0); }, 0)) % COLORES_AV.length;
+  return '<span class="av" style="width:' + tam + 'px;height:' + tam + 'px;font-size:' + Math.round(tam * 0.4) + 'px;background:' + COLORES_AV[i] + '">' +
+    (foto ? '<img src="' + foto + '" alt="Foto de ' + esc(p.nombre) + '">' : esc(String(p.nombre || '?').trim().charAt(0).toUpperCase() || '?')) + '</span>';
+}
+function rolEdad(p) { return esc(p.rol) + (p.edad !== '' && p.edad != null ? ' · ' + esc(p.edad) + ' años' : ''); }
+// Reduce la foto a 320 px y la guarda solo en este celular.
+function leerFoto(archivo, id) {
+  return new Promise(function (ok, mal) {
+    if (!archivo || !/^image\//.test(archivo.type)) return mal(new Error('Elige una imagen'));
+    var lector = new FileReader();
+    lector.onload = function () {
+      var img = new Image();
+      img.onload = function () {
+        var lado = Math.min(img.width, img.height), c = document.createElement('canvas'); c.width = c.height = 320;
+        c.getContext('2d').drawImage(img, (img.width - lado) / 2, (img.height - lado) / 2, lado, lado, 0, 0, 320, 320);
+        FOTOS[id] = c.toDataURL('image/jpeg', 0.8);
+        if (!grabarJSON(K_FOTOS, FOTOS)) { delete FOTOS[id]; return mal(new Error('No hay espacio para más fotos en este celular')); }
+        ok();
+      };
+      img.onerror = function () { mal(new Error('No se pudo leer la foto')); };
+      img.src = lector.result;
+    };
+    lector.readAsDataURL(archivo);
+  });
+}
+
+/* =================== Acciones (rápidas: se guardan en el celular y luego en la hoja) =================== */
+function perfilServidor(f) {
+  return {
+    familiaId: f.familiaId, nombre: f.titular.nombre, iniciales: inicialesDe(f.titular.nombre), rol: f.titular.rol,
+    integrantes: (f.integrantes || []).map(function (p) { return { id: p.id, nombre: p.nombre, rol: p.rol, edad: p.edad }; }),
+    edades: edades().map(String), horaCierre: f.horaCierre, dias: String(f.dias).split(''), consentimiento: true
+  };
+}
+var accion = {
+  guardarPerfil: function (f) { DB.familia = f; guardarDB(); try { localStorage.setItem('mef_familiaId', f.familiaId); } catch (e) {} enviar('guardarConfiguracion', perfilServidor(f)); },
+  agregarMenu: function (d, a) { DB.menu[d] = { id: a.id, nombre: a.nombre }; guardarDB(); enviar('agregarAlMenu', fid(), d, { id: a.id, nombre: a.nombre }); },
+  quitarMenu: function (d) { delete DB.menu[d]; guardarDB(); enviar('quitarDelMenu', fid(), d); },
+  registrar: function (r) {
+    r.fecha = fechaHoy();
+    DB.registros.push({ fecha: r.fecha, cumplio: r.cumplioCierre, minutos: r.minutosFamilia, actividadId: r.actividadId });
+    guardarDB(); enviar('guardarRegistro', fid(), r);
+  },
+  checkin: function (c) { c.fecha = fechaHoy(); DB.checkins.push({ fecha: c.fecha, animo: c.animo }); guardarDB(); enviar('guardarCheckin', fid(), c); },
+  encuesta: function (e) { enviar('guardarEncuesta', fid(), e); }
+};
+function resumen() {
+  var vinc = {}; acts().forEach(function (a) { vinc[a.id] = a.vinculo; });
+  var hoy = fechaHoy(), base = new Date(hoy + 'T12:00:00Z').getTime(), semana = [];
+  for (var i = 6; i >= 0; i--) semana.push(new Date(base - i * 864e5).toISOString().slice(0, 10));
+  var cs = {}, ct = {}, min = 0, nAct = 0, vs = {};
+  DB.registros.forEach(function (x) {
+    if (x.cumplio) ct[x.fecha] = true;
+    if (x.actividadId) { nAct++; if (vinc[x.actividadId]) vs[vinc[x.actividadId]] = true; }
+    if (semana.indexOf(x.fecha) > -1) { if (x.cumplio) cs[x.fecha] = true; min += +x.minutos || 0; }
+  });
+  var an = { 'Bien': 0, 'Cansada/o': 0, 'Muy cargada/o': 0 };
+  DB.checkins.forEach(function (c) { if (semana.indexOf(c.fecha) > -1 && an[c.animo] !== undefined) an[c.animo]++; });
+  var racha = 0, d = base; if (!ct[hoy]) d -= 864e5;
+  while (ct[new Date(d).toISOString().slice(0, 10)]) { racha++; d -= 864e5; }
+  return { dias: semana.map(function (f) { return { fecha: f, cumplido: !!cs[f] }; }), cierres: Object.keys(cs).length, minutos: min, racha: racha,
+    totalCierres: Object.keys(ct).length, totalActividades: nAct, vinculos: Object.keys(vs).length, animos: an };
+}
+
+/* =================== Recordatorios en el calendario del celular =================== */
+function construirICS(h, dias, plan, nombre) {
+  var p = String(h || '19:00').split(':'), hh = +p[0], mm = +p[1] || 0, hoy = ahora();
+  function loc(d) { return d.getFullYear() + dosD(d.getMonth() + 1) + dosD(d.getDate()) + 'T' + dosD(d.getHours()) + dosD(d.getMinutes()) + '00'; }
+  var stamp = new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z';
+  var ini = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate(), hh, mm), fin = new Date(ini.getTime() + 15 * 60000);
+  var byday = String(dias || 'LMXJVS').split('').map(function (x) { return RRULE_DIA[x]; }).filter(Boolean).join(',') || 'MO,TU,WE,TH,FR,SA';
+  var L = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Momentos en Familia//ES', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
+    'BEGIN:VEVENT', 'UID:cierre-' + nuevoId() + '@momentosenfamilia', 'DTSTAMP:' + stamp, 'DTSTART:' + loc(ini), 'DTEND:' + loc(fin),
+    'RRULE:FREQ=WEEKLY;BYDAY=' + byday, 'SUMMARY:Hora de cierre · Momentos en Familia',
+    'DESCRIPTION:' + (nombre ? nombre + '\\, ' : '') + 'cierra el trabajo\\, deja el celular en la canasta y abre la app: Llegué a casa.',
+    'BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:Hora de cierre', 'TRIGGER:-PT5M', 'END:VALARM', 'END:VEVENT'];
+  if (plan) {
+    var dom = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate() + ((7 - hoy.getDay()) % 7), 20, 0), domF = new Date(dom.getTime() + 20 * 60000);
+    L = L.concat(['BEGIN:VEVENT', 'UID:plan-' + nuevoId() + '@momentosenfamilia', 'DTSTAMP:' + stamp, 'DTSTART:' + loc(dom), 'DTEND:' + loc(domF),
+      'RRULE:FREQ=WEEKLY;BYDAY=SU', 'SUMMARY:Planificar la semana en familia · Momentos en Familia',
+      'DESCRIPTION:Elijan juntos las actividades de la semana en la app.', 'BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:Planificar la semana', 'TRIGGER:-PT10M', 'END:VALARM', 'END:VEVENT']);
+  }
+  return L.concat(['END:VCALENDAR']).join('\r\n');
+}
+function urlServicio() { return API_URL || DB.url || ''; }
+function linkGoogleCalendar() {
+  var f = DB.familia, p = String(f.horaCierre).split(':'), d = ahora();
+  var ini = new Date(d.getFullYear(), d.getMonth(), d.getDate(), +p[0], (+p[1] || 0) - 5), fin = new Date(ini.getTime() + 15 * 60000);
+  function fmt(x) { return x.getFullYear() + dosD(x.getMonth() + 1) + dosD(x.getDate()) + 'T' + dosD(x.getHours()) + dosD(x.getMinutes()) + '00'; }
   var dias = String(f.dias || 'LMXJVS').split('').map(function (x) { return RRULE_DIA[x]; }).filter(Boolean).join(',');
   return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent('Hora de cierre · Momentos en Familia') +
     '&details=' + encodeURIComponent('Cierra el trabajo, deja el celular en la canasta y abre la app: “Llegué a casa”.') +
     '&dates=' + fmt(ini) + '/' + fmt(fin) + '&ctz=America/Lima&recur=' + encodeURIComponent('RRULE:FREQ=WEEKLY;BYDAY=' + dias);
 }
-/* Instalación como app (solo en la versión alojada en GitHub Pages) */
+function abrirRecordatorios() {
+  var f = DB.familia, diasTxt = String(f.dias).split('').map(function (d) { return NOMBRE_DIA[d].slice(0, 3); }).join(', ');
+  hoja('<h2>Recordatorios en tu calendario</h2><p class="sub">Se agregan al calendario de tu celular y te avisan antes de la hora.</p>' +
+    '<label class="interruptor"><span><b>Hora de cierre</b><br><span class="sub">' + hora12(f.horaCierre) + ' · ' + diasTxt + '</span></span><input type="checkbox" id="icsC" checked disabled></label>' +
+    '<label class="interruptor"><span><b>Planificar la semana</b><br><span class="sub">Domingo 8:00 p. m.</span></span><input type="checkbox" id="icsP" checked></label>' +
+    '<a class="btn" id="icsBtn" target="_blank" rel="noopener">' + icono('calendario') + 'Agregar a mi calendario</a>' +
+    '<p class="sub">Al tocarlo, tu celular te pedirá confirmar: <b>Android</b> → abre el archivo con <b>Calendario</b> o <b>Google Calendar</b> y toca <b>Importar / Guardar</b>. <b>iPhone</b> → toca <b>Agregar todo</b>.</p>' +
+    '<a class="btn sec chico" href="' + linkGoogleCalendar() + '" target="_blank" rel="noopener">Otra opción: abrir en Google Calendar</a>', function (v) {
+    var btn = $('#icsBtn', v), url = null;
+    function actualizar() {
+      var plan = $('#icsP', v).checked, base = urlServicio();
+      if (base) {
+        btn.removeAttribute('download');
+        btn.href = base + '?ics=1&h=' + encodeURIComponent(f.horaCierre) + '&d=' + encodeURIComponent(f.dias) + '&p=' + (plan ? 1 : 0) + '&n=' + encodeURIComponent(primerNombre(f.titular));
+      } else {
+        if (url) URL.revokeObjectURL(url);
+        url = URL.createObjectURL(new Blob([construirICS(f.horaCierre, f.dias, plan, primerNombre(f.titular))], { type: 'text/calendar' }));
+        btn.href = url; btn.setAttribute('download', 'momentos-en-familia.ics'); btn.removeAttribute('target');
+      }
+    }
+    $('#icsP', v).onchange = actualizar; actualizar();
+    btn.addEventListener('click', function () { setTimeout(function () { avisar('Confirma en tu celular para guardar los recordatorios.'); }, 300); });
+  });
+}
+
+/* =================== Instalar como app (versión GitHub Pages) =================== */
 var eventoInstalar = null;
 function yaInstalada() { return (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true; }
 function esIOS() { return /iphone|ipad|ipod/i.test(navigator.userAgent); }
@@ -432,25 +614,23 @@ function tarjetaInstalar() {
     '<img src="icons/icon-192.png" alt="" width="44" height="44" style="border-radius:12px;flex:none">' +
     '<span style="flex:1"><b>Instala la app en tu celular</b><br><span class="sub">Ábrela con un toque, a pantalla completa.</span></span>' + icono('sig') + '</button>';
 }
-function instalar() {
+function instalarApp() {
   if (eventoInstalar) { eventoInstalar.prompt(); eventoInstalar.userChoice.then(function (r) { if (r.outcome === 'accepted') avisar('¡Listo! Busca el ícono verde en tu celular.'); eventoInstalar = null; }); return; }
   hoja('<h2>Instalar Momentos en Familia</h2>' + (esIOS() ?
     '<ol class="pasos"><li><span>Abre esta página en <b>Safari</b>.</span></li><li><span>Toca el botón <b>Compartir</b> (el cuadrado con una flecha hacia arriba).</span></li><li><span>Elige <b>“Agregar a inicio”</b> y toca <b>Agregar</b>.</span></li></ol>' :
     '<ol class="pasos"><li><span>Abre esta página en <b>Chrome</b>.</span></li><li><span>Toca el menú <b>⋮</b> (arriba a la derecha).</span></li><li><span>Elige <b>“Instalar app”</b> o <b>“Agregar a la pantalla principal”</b>.</span></li></ol>') +
     '<button class="btn" data-cerrar>Entendido</button>');
 }
-document.addEventListener('click', function (e) { if (e.target.closest('#btnInstalar')) instalar(); });
-var MENSAJE_AUTO ='Hola, gracias por escribir. Mi horario de atención terminó por hoy: estoy compartiendo con mi familia. Te respondo mañana desde las 8:00 a. m.';
 
-/* ---------------- Render ---------------- */
+/* =================== Render =================== */
 var TABS = [['hoy', 'Hoy', 'hoy'], ['banco', 'Actividades', 'banco'], ['llegue', 'Llegué', 'puerta'], ['semana', 'Semana', 'semana'], ['arbol', 'Mi árbol', 'arbol']];
 function pintar(html, tab) {
   var m = $('#pantalla'); m.innerHTML = html; m.classList.toggle('sin-nav', !tab);
   var nav = $('#nav'); nav.classList.toggle('oculto', !tab);
   if (tab) nav.innerHTML = TABS.map(function (t) {
-    var act = t[0] === tab ? ' aria-current="page"' : '';
-    if (t[0] === 'llegue') return '<button class="centro" data-ir="llegue"' + act + ' aria-label="Llegué a casa"><span class="bola">' + icono('puerta') + '</span>Llegué</button>';
-    return '<button data-ir="' + t[0] + '"' + act + '>' + icono(t[2]) + t[1] + '</button>';
+    var cur = t[0] === tab ? ' aria-current="page"' : '';
+    if (t[0] === 'llegue') return '<button class="centro" data-ir="llegue"' + cur + ' aria-label="Llegué a casa"><span class="bola">' + icono('puerta') + '</span>Llegué</button>';
+    return '<button data-ir="' + t[0] + '"' + cur + '>' + icono(t[2]) + t[1] + '</button>';
   }).join('');
   estado.vista = tab; window.scrollTo(0, 0);
 }
@@ -463,6 +643,7 @@ function hoja(html, alAbrir) {
 
 /* ===== Bienvenida ===== */
 function vBienvenida() {
+  estado.vista = null;
   $('#pantalla').classList.add('sin-nav'); $('#nav').classList.add('oculto');
   $('#pantalla').innerHTML = '<div class="bienvenida" style="margin:-20px -18px -32px">' +
     '<div class="marca">' + icono('hoja') + 'Momentos en Familia</div>' + heroFamilia() +
@@ -473,52 +654,98 @@ function vBienvenida() {
     '<div class="beneficio"><span class="circulo">' + icono('arbol') + '</span><p><b>Mira crecer tu árbol de la selva</b><br><span class="sub">con cada día que cumples.</span></p></div>' +
     '<button class="btn" id="empezar">Comenzar</button>' + tarjetaInstalar() +
     '<p class="sub" style="text-align:center">Hecho en Rupa-Rupa, Tingo María · Grupo 1 · UTP</p></div>';
-  $('#empezar').onclick = vConfigurar;
+  $('#empezar').onclick = function () { vPerfil(true); };
 }
 
-/* ===== Configurar ===== */
-function vConfigurar() {
-  var f = estado.familia || {}, hijos = f.edades ? String(f.edades).split(',').map(function (x) { return x.trim(); }).filter(Boolean) : [];
+/* ===== Perfil familiar ===== */
+var borrador = null;
+function vPerfil(primera) {
+  if (!borrador) borrador = DB.familia ? JSON.parse(JSON.stringify(DB.familia)) :
+    { familiaId: 'F' + nuevoId(), titular: { id: 'yo', nombre: '', rol: 'Mamá', edad: '' }, integrantes: [], horaCierre: '19:00', dias: 'LMXJVS' };
+  var f = borrador;
   pintar(
-    '<div class="fila">' + (estado.familia ? '<button class="volver" style="position:static" data-ir="arbol" aria-label="Volver">' + icono('atras') + '</button>' : '') +
-    '<div><p class="eyebrow">Tu familia</p><h2>Configura tu app</h2></div></div>' +
-    '<p class="sub">Solo toma un minuto. Pedimos iniciales, no nombres.</p>' +
-    '<form id="fConfig" style="display:flex;flex-direction:column;gap:14px">' +
-      '<div class="card"><label>¿Cómo te llamamos? (iniciales)<input type="text" id="iniciales" maxlength="8" required value="' + esc(f.iniciales || '') + '" placeholder="Ej.: R. Z."></label></div>' +
-      '<div class="card"><h3>Tus hijos</h3><p class="sub">Así te sugerimos actividades para su edad.</p><div class="chips" id="hijos"></div>' +
-        '<div class="fila"><input type="number" id="edadNueva" min="0" max="17" placeholder="Edad" aria-label="Edad del hijo o hija" style="max-width:120px"><button type="button" class="btn sec chico" id="agregarHijo" style="width:auto">' + icono('mas') + 'Agregar</button></div></div>' +
-      '<div class="card"><h3>Tu hora de cierre</h3><p class="sub">A esta hora dejas el trabajo y empieza el tiempo en familia.</p>' +
-        '<input type="time" id="horaCierre" required value="' + esc(f.horaCierre || '19:00') + '" style="font-family:var(--titulo);font-size:28px;font-weight:600;color:var(--selva);text-align:center" aria-label="Hora de cierre">' +
-        '<p style="font-size:14px;font-weight:500;margin-top:4px">Días en que aplico mi cierre</p><div class="chips" id="dias">' +
-        DIAS.map(function (d) { var on = f.dias ? f.dias.indexOf(d) > -1 : d !== 'D'; return '<button type="button" class="chip" style="min-width:42px;padding:0" aria-pressed="' + on + '" data-dia="' + d + '" aria-label="' + NOMBRE_DIA[d] + '">' + d + '</button>'; }).join('') + '</div></div>' +
-      '<label class="check card" style="flex-direction:row"><input type="checkbox" id="consentimiento" required' + (estado.familia ? ' checked' : '') + '><span>Acepto participar en la prueba de la app. Mis datos se usan solo con fines académicos y puedo retirarme cuando quiera.</span></label>' +
-      '<button class="btn" type="submit">' + (estado.familia ? 'Guardar cambios' : 'Guardar y empezar') + '</button>' +
-    '</form>', null);
-  function pintarHijos() {
-    $('#hijos').innerHTML = hijos.length ? hijos.map(function (h, i) { return '<button type="button" class="chip" aria-pressed="true" data-i="' + i + '" aria-label="Quitar hijo de ' + esc(h) + ' años">' + esc(h) + ' años ✕</button>'; }).join('') : '<span class="sub">Aún no agregas edades.</span>';
-  }
-  pintarHijos();
-  $('#hijos').onclick = function (e) { var b = e.target.closest('[data-i]'); if (b) { hijos.splice(+b.dataset.i, 1); pintarHijos(); } };
-  $('#agregarHijo').onclick = function () { var v = parseInt($('#edadNueva').value, 10); if (v >= 0 && v <= 17) { hijos.push(String(v)); $('#edadNueva').value = ''; pintarHijos(); } else avisar('Escribe una edad entre 0 y 17 años'); };
-  $('#dias').onclick = function (e) { var b = e.target.closest('.chip'); if (b) b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') !== 'true'); };
-  $('#fConfig').onsubmit = function (e) {
-    e.preventDefault();
-    servidor('guardarConfiguracion', {
-      familiaId: f.familiaId, iniciales: $('#iniciales').value.trim(), edades: hijos, horaCierre: $('#horaCierre').value,
-      dias: $$('#dias [aria-pressed=true]').map(function (b) { return b.dataset.dia; }), consentimiento: $('#consentimiento').checked
-    }).then(function (fam) {
-      estado.familia = fam; guardarLocal('mef_familiaId', fam.familiaId);
-      avisar('¡Listo! Tu hora de cierre es a las ' + hora12(fam.horaCierre));
-      cargarTodo().then(vHoy);
-    });
+    '<div class="fila">' + (!primera ? '<button class="volver" style="position:static" id="pVolver" aria-label="Volver">' + icono('atras') + '</button>' : '') +
+    '<div><p class="eyebrow">' + (primera ? 'Bienvenida/o' : 'Mi familia') + '</p><h2>' + (primera ? 'Crea el perfil de tu familia' : 'Perfil familiar') + '</h2></div></div>' +
+    '<p class="sub">Las fotos se guardan <b>solo en este celular</b>. Nombres y edades nos ayudan a sugerir actividades para cada integrante.</p>' +
+    '<form id="fPerfil" style="display:flex;flex-direction:column;gap:14px" novalidate>' +
+      '<section class="card" style="align-items:center;text-align:center">' +
+        '<button type="button" class="foto-edit" data-foto="yo" aria-label="Cambiar tu foto">' + avatar(f.titular, 96) + '<span class="cam">' + icono('camara', ' style="width:18px;height:18px"') + '</span></button>' +
+        '<label style="width:100%;text-align:left">Tu nombre completo<input type="text" id="pNombre" maxlength="60" required value="' + esc(f.titular.nombre) + '" placeholder="Ej.: Rosa Zevallos Ruiz" autocomplete="name"></label>' +
+        '<label style="width:100%;text-align:left">Tu rol en la familia<select id="pRol">' + ROLES_TITULAR.map(function (r) { return '<option' + (r === f.titular.rol ? ' selected' : '') + '>' + r + '</option>'; }).join('') + '</select></label>' +
+      '</section>' +
+      '<section class="card"><div class="fila entre"><h3>Tu familia</h3><span class="sub">' + f.integrantes.length + ' integrante' + (f.integrantes.length === 1 ? '' : 's') + '</span></div>' +
+        (f.integrantes.length ? '<div>' + f.integrantes.map(function (p, i) {
+          return '<div class="integrante">' + avatar(p, 48) + '<div class="datos"><b style="font-weight:500">' + esc(p.nombre) + '</b><br><span class="sub">' + rolEdad(p) + '</span></div>' +
+            '<button type="button" class="icono-btn" data-editar-int="' + i + '" aria-label="Editar a ' + esc(p.nombre) + '">' + icono('editar', ' style="width:20px;height:20px"') + '</button>' +
+            '<button type="button" class="icono-btn peligro" data-quitar-int="' + i + '" aria-label="Quitar a ' + esc(p.nombre) + '">' + icono('basura', ' style="width:20px;height:20px"') + '</button></div>';
+        }).join('') + '</div>' : '<p class="sub">Agrega a tu pareja, hijos u otros integrantes del hogar.</p>') +
+        '<button type="button" class="btn sec chico" id="pAgregar">' + icono('mas') + 'Agregar integrante</button></section>' +
+      '<section class="card"><h3>Tu hora de cierre</h3><p class="sub">A esta hora dejas el trabajo y empieza el tiempo en familia.</p>' +
+        '<input type="time" id="pHora" required value="' + esc(f.horaCierre) + '" style="font-family:var(--titulo);font-size:28px;font-weight:600;color:var(--selva);text-align:center" aria-label="Hora de cierre">' +
+        '<p style="font-size:14px;font-weight:500;margin-top:4px">Días en que aplico mi cierre</p><div class="chips" id="pDias">' +
+        DIAS.map(function (d) { return '<button type="button" class="chip" style="min-width:42px;padding:0" aria-pressed="' + (String(f.dias).indexOf(d) > -1) + '" data-dia="' + d + '" aria-label="' + NOMBRE_DIA[d] + '">' + d + '</button>'; }).join('') + '</div></section>' +
+      (primera || !DB.familia ? '<label class="check card" style="flex-direction:row"><input type="checkbox" id="pCons"><span>Acepto participar en la prueba de la app. Mis datos (sin fotos) se usan solo con fines académicos y puedo retirarme cuando quiera.</span></label>' : '') +
+      '<button class="btn" type="submit">' + icono('check') + (primera ? 'Guardar y empezar' : 'Guardar cambios') + '</button>' +
+    '</form><input type="file" accept="image/*" class="oculto-file" id="pArchivo" aria-hidden="true" tabindex="-1">', null);
+  function tomar() { f.titular.nombre = $('#pNombre').value.trim(); f.titular.rol = $('#pRol').value; f.horaCierre = $('#pHora').value || '19:00'; f.dias = $$('#pDias [aria-pressed=true]').map(function (b) { return b.dataset.dia; }).join(''); }
+  var fotoPara = null;
+  $('#pArchivo').onchange = function () {
+    var a = this.files[0], id = fotoPara; this.value = '';
+    leerFoto(a, id).then(function () { tomar(); vPerfil(primera); avisar('Foto guardada en este celular'); }).catch(function (e) { avisar(e.message); });
   };
+  $$('[data-foto]').forEach(function (b) { b.onclick = function () { fotoPara = b.dataset.foto; $('#pArchivo').click(); }; });
+  $('#pDias').onclick = function (e) { var b = e.target.closest('.chip'); if (b) b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') !== 'true'); };
+  $('#pAgregar').onclick = function () { tomar(); editarIntegrante(null, primera); };
+  $$('[data-editar-int]').forEach(function (b) { b.onclick = function () { tomar(); editarIntegrante(+b.dataset.editarInt, primera); }; });
+  $$('[data-quitar-int]').forEach(function (b) {
+    b.onclick = function () {
+      var p = f.integrantes[+b.dataset.quitarInt];
+      if (!confirmarQuitar(p)) return;
+      tomar(); f.integrantes.splice(+b.dataset.quitarInt, 1); delete FOTOS[p.id]; grabarJSON(K_FOTOS, FOTOS); vPerfil(primera);
+    };
+  });
+  if ($('#pVolver')) $('#pVolver').onclick = function () { borrador = null; vArbol(); };
+  $('#fPerfil').onsubmit = function (e) {
+    e.preventDefault(); tomar();
+    if (f.titular.nombre.length < 2) { $('#pNombre').focus(); return avisar('Escribe tu nombre'); }
+    if (!f.dias) return avisar('Elige al menos un día');
+    if ($('#pCons') && !$('#pCons').checked) return avisar('Para continuar, acepta participar en la prueba');
+    var nuevo = !DB.familia; accion.guardarPerfil(f); borrador = null;
+    avisar(nuevo ? '¡Bienvenida/o, ' + primerNombre(f.titular) + '! Tu cierre es a las ' + hora12(f.horaCierre) : 'Perfil actualizado');
+    nuevo ? vHoy() : vArbol();
+  };
+}
+function confirmarQuitar(p) { return window.confirm ? window.confirm('¿Quitar a ' + p.nombre + ' de tu familia?') : true; }
+function editarIntegrante(i, primera) {
+  var f = borrador, nuevo = i === null, p = nuevo ? { id: 'P' + nuevoId(), nombre: '', rol: 'Hija', edad: '' } : JSON.parse(JSON.stringify(f.integrantes[i]));
+  hoja('<h2>' + (nuevo ? 'Agregar integrante' : 'Editar integrante') + '</h2>' +
+    '<div style="display:flex;justify-content:center"><button type="button" class="foto-edit" id="iFoto" aria-label="Agregar foto">' + avatar(p, 88) + '<span class="cam">' + icono('camara', ' style="width:18px;height:18px"') + '</span></button></div>' +
+    '<p class="sub" style="text-align:center">Toca para tomar o elegir una foto (opcional).</p>' +
+    '<label>Nombre<input type="text" id="iNombre" maxlength="40" value="' + esc(p.nombre) + '" placeholder="Ej.: Valeria"></label>' +
+    '<div class="grid2"><label>Rol<select id="iRol">' + ROLES.map(function (r) { return '<option' + (r === p.rol ? ' selected' : '') + '>' + r + '</option>'; }).join('') + '</select></label>' +
+    '<label>Edad<input type="number" id="iEdad" min="0" max="110" inputmode="numeric" value="' + esc(p.edad) + '" placeholder="Años"></label></div>' +
+    '<button class="btn" id="iOk">' + icono('check') + 'Guardar</button><button class="btn sec" data-cerrar>Cancelar</button>' +
+    '<input type="file" accept="image/*" class="oculto-file" id="iArchivo" aria-hidden="true" tabindex="-1">', function (v) {
+    $('#iFoto', v).onclick = function () { $('#iArchivo', v).click(); };
+    $('#iArchivo', v).onchange = function () {
+      var a = this.files[0]; this.value = '';
+      leerFoto(a, p.id).then(function () { $('#iFoto', v).innerHTML = avatar(p, 88) + '<span class="cam">' + icono('camara', ' style="width:18px;height:18px"') + '</span>'; }).catch(function (e) { avisar(e.message); });
+    };
+    $('#iOk', v).onclick = function () {
+      p.nombre = $('#iNombre', v).value.trim(); p.rol = $('#iRol', v).value; p.edad = $('#iEdad', v).value === '' ? '' : String(Math.max(0, Math.min(110, parseInt($('#iEdad', v).value, 10) || 0)));
+      if (!p.nombre) return avisar('Escribe el nombre');
+      if (esHijo(p) && p.edad === '') return avisar('Escribe la edad para sugerir actividades');
+      if (nuevo) f.integrantes.push(p); else f.integrantes[i] = p;
+      v.remove(); vPerfil(primera);
+    };
+  });
 }
 
 /* ===== Hoy ===== */
 function actividadDelDia() {
-  var m = estado.menu[diaHoy()]; if (m && act(m.id)) return act(m.id);
-  var aptas = estado.actividades.filter(function (a) { return a.vinculo !== 'Autocuidado' && a.vinculo !== 'Papá y mamá' && a.minutos <= 30 && aptaEdad(a); });
-  var d = ahora(); return aptas[(d.getDate() + d.getMonth()) % (aptas.length || 1)] || estado.actividades[0];
+  var m = DB.menu[diaHoy()]; if (m && act(m.id)) return act(m.id);
+  var aptas = acts().filter(function (a) { return a.vinculo !== 'Autocuidado' && a.vinculo !== 'Papá y mamá' && a.minutos <= 30 && aptaEdad(a); });
+  var d = ahora(); return aptas[(d.getDate() + d.getMonth()) % (aptas.length || 1)] || acts()[0];
 }
 function anillo(frac) {
   var r = 40, c = 2 * Math.PI * r, v = Math.max(0, Math.min(1, frac));
@@ -527,18 +754,20 @@ function anillo(frac) {
     '<path d="M50 34v16l9 6" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/></svg>';
 }
 function vHoy() {
-  var f = estado.familia, a = actividadDelDia(), r = estado.resumen || { racha: 0, cierres: 0, minutos: 0, totalCierres: 0 };
+  var f = DB.familia, a = actividadDelDia(), r = resumen();
   var falta = minutosPara(f.horaCierre), inicio = 8 * 60, p = String(f.horaCierre).split(':'), cierre = +p[0] * 60 + (+p[1] || 0);
   var nowM = ahora().getHours() * 60 + ahora().getMinutes(), frac = (nowM - inicio) / Math.max(60, cierre - inicio);
   var aplica = String(f.dias || '').indexOf(diaHoy()) > -1;
   var estadoCierre = !aplica ? 'Hoy no tienes cierre programado. ¡Disfruta!' : falta > 0 ? 'Faltan <b>' + Math.floor(falta / 60) + ' h ' + (falta % 60) + ' min</b> para cerrar' : '<b>¡Ya es hora!</b> Tiempo de familia';
-  var tip = TIPS[ahora().getDate() % TIPS.length];
+  var tip = TIPS[ahora().getDate() % TIPS.length], fam = todos().slice(0, 5);
   pintar(
-    '<div class="fila entre"><div><p class="sub">' + saludo() + ',</p><h2>' + esc(f.iniciales) + '</h2></div><span class="avatar" aria-hidden="true">' + icono('hoja') + '</span></div>' +
+    '<div class="fila entre"><div><p class="sub">' + saludo() + ',</p><h2>' + esc(primerNombre(f.titular)) + '</h2></div>' +
+      '<button class="avatares" data-perfil aria-label="Ver perfil de mi familia">' + fam.map(function (x) { return avatar(x, 42); }).join('') + '</button></div>' +
+    '<p class="sync" id="sync">' + textoSync() + '</p>' +
     '<section class="hero" aria-label="Hora de cierre">' +
       '<svg class="hoja-fondo" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" aria-hidden="true">' + IC.hoja + '</svg>' +
       '<div class="fila entre"><div style="display:flex;flex-direction:column;gap:6px"><p style="opacity:.85;font-size:14px">Tu hora de cierre</p><p class="grande">' + hora12(f.horaCierre) + '</p><p style="font-size:14.5px">' + estadoCierre + '</p></div>' + anillo(aplica ? frac : 0) + '</div>' +
-      '<div class="fila" style="flex-wrap:wrap;gap:8px"><a class="btn blanco" href="' + linkCalendario() + '" target="_blank" rel="noopener">' + icono('campana', ' style="width:18px;height:18px"') + 'Recordatorio diario</a>' +
+      '<div class="fila" style="flex-wrap:wrap;gap:8px"><button class="btn blanco" data-recordatorios>' + icono('campana', ' style="width:18px;height:18px"') + 'Recordatorios</button>' +
       '<button class="btn blanco" data-ir="llegue">' + icono('puerta', ' style="width:18px;height:18px"') + 'Llegué a casa</button></div>' +
     '</section>' +
     (a ? '<section class="card" style="padding:0;overflow:hidden" aria-label="Actividad de hoy">' + ilus(a.ilus) +
@@ -555,7 +784,7 @@ function vHoy() {
 /* ===== Actividades (banco) ===== */
 function vBanco() {
   var fl = estado.filtro;
-  var lista = estado.actividades.filter(function (a) {
+  var lista = acts().filter(function (a) {
     if (fl.vinculo && a.vinculo !== fl.vinculo) return false;
     if (fl.tiempo === 10 && a.minutos > 10) return false;
     if (fl.tiempo === 20 && a.minutos > 20) return false;
@@ -566,7 +795,7 @@ function vBanco() {
     return true;
   });
   pintar(
-    '<div><p class="eyebrow">Banco de actividades</p><h2>¿Qué hacemos hoy?</h2><p class="sub">' + estado.actividades.length + ' ideas cortas, gratis o casi gratis.</p></div>' +
+    '<div><p class="eyebrow">Banco de actividades</p><h2>¿Qué hacemos hoy?</h2><p class="sub">' + acts().length + ' ideas cortas, gratis o casi gratis.</p></div>' +
     '<div class="buscar">' + icono('buscar') + '<input type="text" id="buscar" placeholder="Buscar: cuento, río, juego…" value="' + esc(fl.texto) + '" aria-label="Buscar actividad"></div>' +
     '<div class="chips scroll" id="fV" aria-label="Filtrar por vínculo"><button class="chip" aria-pressed="' + !fl.vinculo + '" data-v="">Todas</button>' + VINCULOS.map(function (v) {
       return '<button class="chip" aria-pressed="' + (fl.vinculo === v) + '" data-v="' + esc(v) + '">' + esc(v) + '</button>'; }).join('') + '</div>' +
@@ -589,22 +818,23 @@ var temporizador = null;
 function vDetalle(id) {
   var a = act(id); if (!a) return vBanco();
   clearInterval(temporizador);
+  var tab = estado.vista === 'hoy' ? 'hoy' : 'banco';
   pintar(
-    '<div class="cabecera-ilus">' + ilus(a.ilus) + '<button class="volver" data-ir="' + (estado.vista === 'hoy' ? 'hoy' : 'banco') + '" aria-label="Volver">' + icono('atras') + '</button></div>' +
+    '<div class="cabecera-ilus">' + ilus(a.ilus) + '<button class="volver" data-ir="' + tab + '" aria-label="Volver">' + icono('atras') + '</button></div>' +
     '<div style="display:flex;flex-direction:column;gap:8px"><p class="eyebrow">' + esc(a.vinculo) + '</p><h1 style="font-size:24px">' + esc(a.nombre) + '</h1><div class="chips">' + meta(a) + '<span class="badge tierra">' + esc(a.frecuencia) + '</span></div></div>' +
     '<section class="card"><h3>Cómo hacerla</h3><ol class="pasos">' + a.pasos.map(function (p) { return '<li><span>' + esc(p) + '</span></li>'; }).join('') + '</ol></section>' +
     '<section class="card plana"><p><b>Necesitas:</b> ' + esc(a.materiales) + '</p><p class="sub">Por qué ayuda: ' + esc(a.grupoFoco) + '</p></section>' +
-    (a.minutos > 0 ? '<section class="card" id="cajaTimer"><div class="fila entre"><h3>Temporizador</h3><span class="sub">Sin mirar el celular 😉</span></div><p class="timer" id="timer">' + a.minutos + ':00</p><button class="btn sec chico" id="iniciar">' + icono('play') + 'Iniciar ' + a.minutos + ' min</button></section>' : '') +
-    '<div class="grid2"><button class="btn borde" id="agendar">' + icono('calendario') + 'Agendar</button><button class="btn" data-registrar="' + a.id + '">' + icono('check') + '¡La hicimos!</button></div>', estado.vista === 'hoy' ? 'hoy' : 'banco');
+    (a.minutos > 0 ? '<section class="card"><div class="fila entre"><h3>Temporizador</h3><span class="sub">Sin mirar el celular 😉</span></div><p class="timer" id="timer">' + a.minutos + ':00</p><button class="btn sec chico" id="iniciar">' + icono('play') + 'Iniciar ' + a.minutos + ' min</button></section>' : '') +
+    '<div class="grid2"><button class="btn borde" id="agendar">' + icono('calendario') + 'Agendar</button><button class="btn" data-registrar="' + a.id + '">' + icono('check') + '¡La hicimos!</button></div>', tab);
   if ($('#iniciar')) $('#iniciar').onclick = function () {
-    var b = this, s = a.minutos * 60, corre = b.dataset.corre === '1';
-    if (corre) { clearInterval(temporizador); b.dataset.corre = '0'; b.innerHTML = icono('play') + 'Continuar'; return; }
+    var b = this, s = a.minutos * 60;
+    if (b.dataset.corre === '1') { clearInterval(temporizador); b.dataset.corre = '0'; b.innerHTML = icono('play') + 'Continuar'; return; }
     if (b.dataset.resto) s = +b.dataset.resto;
     b.dataset.corre = '1'; b.innerHTML = icono('pausa') + 'Pausar';
     temporizador = setInterval(function () {
       s--; b.dataset.resto = s;
       if (!$('#timer')) return clearInterval(temporizador);
-      $('#timer').textContent = Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2);
+      $('#timer').textContent = Math.floor(s / 60) + ':' + dosD(s % 60);
       if (s <= 0) { clearInterval(temporizador); $('#timer').textContent = '¡Tiempo!'; b.innerHTML = icono('check') + 'Terminamos'; b.dataset.corre = '0'; delete b.dataset.resto; avisar('¡Bien hecho! Registra su momento en familia.'); }
     }, 1000);
   };
@@ -612,40 +842,42 @@ function vDetalle(id) {
 }
 function elegirDia(a) {
   hoja('<h2>¿Qué día la hacen?</h2><p class="sub">' + esc(a.nombre) + '</p><div class="chips" id="dSel">' + DIAS.map(function (d) {
-    var ocup = estado.menu[d] ? ' · ocupado' : '';
-    return '<button class="chip" data-d="' + d + '" aria-pressed="' + (d === diaHoy()) + '">' + NOMBRE_DIA[d] + ocup + '</button>'; }).join('') +
+    return '<button class="chip" data-d="' + d + '" aria-pressed="' + (d === diaHoy()) + '">' + NOMBRE_DIA[d] + (DB.menu[d] ? ' · ocupado' : '') + '</button>'; }).join('') +
     '</div><button class="btn" id="okDia">Agendar en mi semana</button><button class="btn sec" data-cerrar>Cancelar</button>', function (v) {
     $('#dSel', v).onclick = function (e) { var b = e.target.closest('.chip'); if (!b) return; $$('.chip', this).forEach(function (c) { c.setAttribute('aria-pressed', c === b); }); };
     $('#okDia', v).onclick = function () {
       var d = $('#dSel [aria-pressed=true]', v).dataset.d;
-      servidor('agregarAlMenu', estado.familia.familiaId, d, { id: a.id, nombre: a.nombre }).then(function (m) { estado.menu = m; v.remove(); avisar('Agendada para el ' + NOMBRE_DIA[d].toLowerCase()); if (estado.vista === 'semana') vSemana(); });
+      accion.agregarMenu(d, a); v.remove(); avisar('Agendada para el ' + NOMBRE_DIA[d].toLowerCase());
+      if (estado.vista === 'semana') vSemana();
     };
   });
 }
 
 /* ===== Registro del día ===== */
 function registrar(aId) {
-  var a = act(aId) || actividadDelDia() || {};
+  var a = act(aId) || actividadDelDia() || {}, gente = todos();
   hoja('<h2>¿Cómo les fue hoy?</h2><p class="sub">Toma 30 segundos. Cada día cumplido hace crecer tu árbol.</p>' +
-    '<label class="interruptor"><span>Cumplí mi hora de cierre (' + hora12(estado.familia.horaCierre) + ')</span><input type="checkbox" id="rCierre" checked></label>' +
+    '<label class="interruptor"><span>Cumplí mi hora de cierre (' + hora12(DB.familia.horaCierre) + ')</span><input type="checkbox" id="rCierre" checked></label>' +
     '<div class="card plana"><p style="font-weight:500;font-size:14px">Minutos en familia</p><div class="chips" id="rMin">' + [10, 15, 20, 30, 45, 60].map(function (m) {
       return '<button class="chip" data-m="' + m + '" aria-pressed="' + (m === (a.minutos >= 45 ? 45 : a.minutos || 20)) + '">' + m + ' min</button>'; }).join('') + '</div></div>' +
-    '<label>Actividad que hicieron<select id="rAct"><option value="">Otra / solo cumplí mi cierre</option>' + estado.actividades.map(function (x) {
+    (gente.length > 1 ? '<div class="card plana"><p style="font-weight:500;font-size:14px">¿Quiénes participaron?</p><div class="chips" id="rQuien">' + gente.map(function (p) {
+      return '<button class="chip" aria-pressed="true" data-n="' + esc(primerNombre(p)) + '" style="padding-left:4px;display:inline-flex;align-items:center;gap:6px">' + avatar(p, 30) + esc(primerNombre(p)) + '</button>'; }).join('') + '</div></div>' : '') +
+    '<label>Actividad que hicieron<select id="rAct"><option value="">Otra / solo cumplí mi cierre</option>' + acts().map(function (x) {
       return '<option value="' + x.id + '"' + (x.id === a.id ? ' selected' : '') + '>' + esc(x.nombre) + '</option>'; }).join('') + '</select></label>' +
     '<button class="btn" id="rOk">' + icono('check') + 'Guardar mi día</button>', function (v) {
     $('#rMin', v).onclick = function (e) { var b = e.target.closest('.chip'); if (!b) return; $$('.chip', this).forEach(function (c) { c.setAttribute('aria-pressed', c === b); }); };
+    if ($('#rQuien', v)) $('#rQuien', v).onclick = function (e) { var b = e.target.closest('.chip'); if (b) b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') !== 'true'); };
     $('#rOk', v).onclick = function () {
-      var b = this; b.disabled = true;
-      var sel = $('#rAct', v), antes = nivelDe((estado.resumen || {}).totalCierres || 0), mm = $('#rMin [aria-pressed=true]', v);
-      servidor('guardarRegistro', estado.familia.familiaId, {
+      var sel = $('#rAct', v), antes = nivelDe(resumen().totalCierres), mm = $('#rMin [aria-pressed=true]', v);
+      accion.registrar({
         cumplioCierre: $('#rCierre', v).checked, minutosFamilia: mm ? +mm.dataset.m : 0,
-        actividadId: sel.value, actividad: sel.value ? sel.options[sel.selectedIndex].text : ''
-      }).then(function (r) {
-        estado.resumen = r; v.remove();
-        var subio = nivelDe(r.totalCierres) > antes;
-        avisar(subio ? '¡Tu árbol subió de nivel: ' + NIVELES[nivelDe(r.totalCierres)].nombre + '!' : '¡Guardado! Tu racha: ' + r.racha + ' día' + (r.racha === 1 ? '' : 's'));
-        vArbol();
+        actividadId: sel.value, actividad: sel.value ? sel.options[sel.selectedIndex].text : '',
+        participantes: $$('#rQuien [aria-pressed=true]', v).map(function (b) { return b.dataset.n; }).join(', ')
       });
+      v.remove();
+      var r = resumen(), subio = nivelDe(r.totalCierres) > antes;
+      avisar(subio ? '¡Tu árbol subió de nivel: ' + NIVELES[nivelDe(r.totalCierres)].nombre + '!' : '¡Guardado! Tu racha: ' + r.racha + ' día' + (r.racha === 1 ? '' : 's'));
+      vArbol();
     };
   });
 }
@@ -653,7 +885,7 @@ function registrar(aId) {
 /* ===== Llegué a casa (ritual de cierre) ===== */
 var ritual = {};
 function vLlegue(paso) {
-  paso = paso || 1; if (paso === 1) ritual = { pendientes: ['', '', ''], modo: [false, false, false], animo: null };
+  paso = paso || 1; if (paso === 1 && !ritual.enCurso) ritual = { pendientes: ['', '', ''], modo: [false, false, false], animo: null, enCurso: true };
   var titulos = ['Suelta el trabajo', 'Respira 1 minuto', 'Activa el Modo familia', '¿Cómo llegas hoy?'];
   var cab = '<div class="fila entre"><p class="eyebrow">Llegué a casa · paso ' + paso + ' de 4</p>' + (paso > 1 ? '<button class="link" id="atrasR">' + icono('atras', ' style="width:18px;height:18px"') + 'Atrás</button>' : '') + '</div>' +
     '<div class="progreso" role="progressbar" aria-valuemin="0" aria-valuemax="4" aria-valuenow="' + paso + '"><div style="width:' + (paso * 25) + '%"></div></div><h1 style="font-size:26px">' + titulos[paso - 1] + '</h1>';
@@ -674,11 +906,11 @@ function vLlegue(paso) {
     '<div class="animo" id="animo">' + ['Bien', 'Cansada/o', 'Muy cargada/o'].map(function (t, i) { return '<button aria-pressed="' + (ritual.animo === t) + '" data-a="' + t + '">' + cara(i) + t + '</button>'; }).join('') + '</div>' +
     '<button class="btn" id="fin">' + icono('check') + 'Terminé por hoy</button>';
   pintar(cab + cuerpo, 'llegue');
-  if ($('#atrasR')) $('#atrasR').onclick = function () { guardarPaso(); vLlegue(paso - 1); };
   function guardarPaso() {
     $$('.pend').forEach(function (i) { ritual.pendientes[+i.dataset.i] = i.value.trim(); });
     $$('.modo').forEach(function (c) { ritual.modo[+c.dataset.i] = c.checked; });
   }
+  if ($('#atrasR')) $('#atrasR').onclick = function () { guardarPaso(); clearInterval(ritual.t); vLlegue(paso - 1); };
   if ($('#sig')) $('#sig').onclick = function () { guardarPaso(); clearInterval(ritual.t); vLlegue(paso + 1); };
   if ($('#copiar')) $('#copiar').onclick = function () { copiar(MENSAJE_AUTO); };
   if ($('#rEmp')) $('#rEmp').onclick = function () {
@@ -686,7 +918,7 @@ function vLlegue(paso) {
     caja.classList.add('inhala'); $('#rTxt').textContent = 'Inhala';
     ritual.t = setInterval(function () {
       if (!$('#rSeg')) return clearInterval(ritual.t);
-      s--; $('#rSeg').textContent = '0:' + ('0' + s).slice(-2);
+      s--; $('#rSeg').textContent = '0:' + dosD(s);
       if (s % 4 === 0) { fase = 1 - fase; caja.classList.toggle('inhala', fase === 0); $('#rTxt').textContent = fase === 0 ? 'Inhala' : 'Exhala'; }
       if (s <= 0) { clearInterval(ritual.t); caja.classList.remove('inhala'); $('#rTxt').textContent = '¡Bien!'; b.disabled = false; b.innerHTML = icono('play') + 'Otra vez'; }
     }, 1000);
@@ -694,8 +926,8 @@ function vLlegue(paso) {
   if ($('#animo')) $('#animo').onclick = function (e) { var b = e.target.closest('button'); if (!b) return; ritual.animo = b.dataset.a; $$('button', this).forEach(function (c) { c.setAttribute('aria-pressed', c === b); }); };
   if ($('#fin')) $('#fin').onclick = function () {
     if (!ritual.animo) return avisar('Elige cómo llegas hoy');
-    var b = this; b.disabled = true;
-    servidor('guardarCheckin', estado.familia.familiaId, { animo: ritual.animo, pendientes: ritual.pendientes, modoFamilia: ritual.modo.every(Boolean) }).then(vListo);
+    accion.checkin({ animo: ritual.animo, pendientes: ritual.pendientes, modoFamilia: ritual.modo.every(Boolean) });
+    ritual.enCurso = false; vListo();
   };
 }
 function sugerencia() {
@@ -705,69 +937,68 @@ function sugerencia() {
 function vListo() {
   var s = sugerencia(), msg = ritual.animo === 'Bien' ? '¡Qué bueno! Aprovecha la energía con la actividad de hoy.' : ritual.animo === 'Cansada/o' ? 'Una pausa activa de 10 minutos con tus hijos ayuda a soltar el cansancio.' : 'Primero cuídate tú: 5 minutos de respiración y luego, si pueden, un cafecito en pareja.';
   pintar('<div style="margin:-20px -18px 0">' + heroFamilia() + '</div>' +
-    '<div style="text-align:center;display:flex;flex-direction:column;gap:6px"><h1>¡Terminaste por hoy!</h1><p class="sub" style="font-size:15.5px">Ahora es tiempo de familia. Tu trabajo te espera mañana.</p></div>' +
+    '<div style="text-align:center;display:flex;flex-direction:column;gap:6px"><h1>¡Terminaste por hoy, ' + esc(primerNombre(titular())) + '!</h1><p class="sub" style="font-size:15.5px">Ahora es tiempo de familia. Tu trabajo te espera mañana.</p></div>' +
     '<section class="card" style="padding:0;overflow:hidden">' + ilus(s.ilus) + '<div style="padding:4px 16px 16px;display:flex;flex-direction:column;gap:8px"><p class="eyebrow">Te sugerimos</p><h3 style="font-size:18px">' + esc(s.nombre) + '</h3><p class="sub">' + msg + '</p>' +
     '<div class="grid2"><button class="btn sec chico" data-ver="' + s.id + '">Ver cómo</button><button class="btn chico" data-registrar="' + s.id + '">' + icono('check') + 'Registrar día</button></div></div></section>', 'llegue');
 }
 
 /* ===== Semana ===== */
 function vSemana() {
-  var hoy = diaHoy();
-  var plan = DIAS.map(function (d) { var m = estado.menu[d]; return NOMBRE_DIA[d] + ': ' + (m ? m.nombre : '—'); }).join('\n');
-  var wa = 'https://wa.me/?text=' + encodeURIComponent('Nuestro plan de Momentos en Familia esta semana 🌿\n' + plan + '\nHora de cierre: ' + hora12(estado.familia.horaCierre));
+  var hoy = diaHoy(), f = DB.familia;
+  var plan = DIAS.map(function (d) { var m = DB.menu[d]; return NOMBRE_DIA[d] + ': ' + (m ? m.nombre : '—'); }).join('\n');
+  var wa = 'https://wa.me/?text=' + encodeURIComponent('Nuestro plan de Momentos en Familia esta semana 🌿\n' + plan + '\nHora de cierre: ' + hora12(f.horaCierre));
   pintar(
     '<div><p class="eyebrow">Planifiquen en pareja cada domingo</p><h2>Nuestra semana</h2><p class="sub">Elige una actividad para cada día. Lo que se ve, se cumple.</p></div>' +
     DIAS.map(function (d) {
-      var m = estado.menu[d], a = m && act(m.id);
+      var m = DB.menu[d], a = m && act(m.id);
       return '<div class="dia-fila' + (d === hoy ? ' hoy' : '') + '"><span class="dnombre">' + NOMBRE_DIA[d].slice(0, 3) + (d === hoy ? '<br><span class="sub" style="font-size:11px;font-weight:500">Hoy</span>' : '') + '</span>' +
         (a ? '<button class="fila" data-ver="' + a.id + '" style="flex:1;background:none;padding:0;min-height:52px;text-align:left;justify-content:flex-start;font-family:var(--texto);font-weight:400;color:var(--tinta)"><span class="thumb">' + ilus(a.ilus) + '</span><span><b style="font-size:14.5px;font-weight:500">' + esc(a.nombre) + '</b><br><span class="sub" style="font-size:12.5px">' + esc(a.duracion) + ' · ' + esc(a.vinculo) + '</span></span></button>' +
           '<button class="link" data-quitar="' + d + '" aria-label="Quitar actividad del ' + NOMBRE_DIA[d] + '" style="min-width:44px">✕</button>'
           : '<button class="vacio" data-elegir="' + d + '" style="background:none;min-height:48px;font-family:var(--texto);font-weight:400">' + icono('mas', ' style="width:16px;height:16px;vertical-align:-3px"') + ' Elegir actividad</button>') + '</div>';
     }).join('') +
-    '<div class="grid2"><a class="btn borde chico" href="' + wa + '" target="_blank" rel="noopener">' + icono('whatsapp') + 'Compartir plan</a><a class="btn sec chico" href="' + linkCalendario() + '" target="_blank" rel="noopener">' + icono('campana') + 'Recordatorio</a></div>' +
+    '<div class="grid2"><a class="btn borde chico" href="' + wa + '" target="_blank" rel="noopener">' + icono('whatsapp') + 'Compartir plan</a><button class="btn sec chico" data-recordatorios>' + icono('campana') + 'Recordatorios</button></div>' +
     '<p class="sub" style="text-align:center">Comparte el plan con tu pareja para repartir los momentos y las tareas.</p>', 'semana');
   $$('[data-elegir]').forEach(function (b) { b.onclick = function () { elegirActividad(b.dataset.elegir); }; });
-  $$('[data-quitar]').forEach(function (b) { b.onclick = function () { servidor('quitarDelMenu', estado.familia.familiaId, b.dataset.quitar).then(function (m) { estado.menu = m; vSemana(); }); }; });
+  $$('[data-quitar]').forEach(function (b) { b.onclick = function () { accion.quitarMenu(b.dataset.quitar); vSemana(); }; });
 }
 function elegirActividad(d) {
-  var lista = estado.actividades.filter(aptaEdad);
+  var lista = acts().filter(aptaEdad);
   hoja('<h2>' + NOMBRE_DIA[d] + '</h2><p class="sub">Elige la actividad de ese día</p><div style="display:flex;flex-direction:column;gap:8px">' + lista.map(function (a) {
     return '<button class="dia-fila" data-a="' + a.id + '" style="min-height:64px"><span class="thumb">' + ilus(a.ilus) + '</span><span><b style="font-size:14.5px;font-weight:500">' + esc(a.nombre) + '</b><br><span class="sub" style="font-size:12.5px">' + esc(a.duracion) + ' · ' + esc(a.vinculo) + '</span></span></button>';
   }).join('') + '</div><button class="btn sec" data-cerrar>Cancelar</button>', function (v) {
     v.querySelector('.hoja-inf').onclick = function (e) {
-      var b = e.target.closest('[data-a]'); if (!b) return; var a = act(b.dataset.a);
-      servidor('agregarAlMenu', estado.familia.familiaId, d, { id: a.id, nombre: a.nombre }).then(function (m) { estado.menu = m; v.remove(); vSemana(); avisar('Agendada para el ' + NOMBRE_DIA[d].toLowerCase()); });
+      var b = e.target.closest('[data-a]'); if (!b) return;
+      accion.agregarMenu(d, act(b.dataset.a)); v.remove(); vSemana(); avisar('Agendada para el ' + NOMBRE_DIA[d].toLowerCase());
     };
   });
 }
 
 /* ===== Mi árbol ===== */
 function vArbol() {
-  servidor('obtenerResumen', estado.familia.familiaId).then(function (r) {
-    estado.resumen = r;
-    var n = nivelDe(r.totalCierres), sig = NIVELES[n + 1], prog = sig ? (r.totalCierres - NIVELES[n].min) / (sig.min - NIVELES[n].min) : 1;
-    var an = r.animos, totA = an['Bien'] + an['Cansada/o'] + an['Muy cargada/o'];
-    var logros = [
-      ['Primer cierre', r.totalCierres >= 1, 'check'], ['3 días seguidos', r.racha >= 3, 'fuego'], ['5 cierres en la semana', r.cierres >= 5, 'estrella'],
-      ['10 actividades', r.totalActividades >= 10, 'corazon'], ['4 vínculos distintos', r.vinculos >= 4, 'usuarios'], ['Árbol de la selva', n >= 4, 'arbol']
-    ];
-    pintar(
-      '<div class="fila entre"><div><p class="eyebrow">Progreso de la familia</p><h2>Mi árbol de la selva</h2></div><button class="link" data-editar aria-label="Editar configuración">' + icono('editar') + '</button></div>' +
-      '<section class="card" style="align-items:center;text-align:center;background:linear-gradient(180deg,#E4F3E8,#fff)">' + arbolNivel(n, 220) +
-        '<h3 style="font-size:20px">' + NIVELES[n].nombre + '</h3><p class="sub">' + (sig ? 'Te faltan <b>' + (sig.min - r.totalCierres) + ' cierre' + (sig.min - r.totalCierres === 1 ? '' : 's') + '</b> para llegar a ' + sig.nombre : '¡Llegaste al nivel más alto!') + '</p>' +
-        '<div class="barra" style="width:100%" role="img" aria-label="Avance al siguiente nivel"><div style="width:' + Math.round(prog * 100) + '%"></div></div></section>' +
-      '<section class="card"><div class="fila entre"><h3>Esta semana</h3><span class="badge sol">' + icono('fuego', ' style="width:14px;height:14px"') + 'Racha ' + r.racha + '</span></div>' +
-        '<div class="semana-dias">' + r.dias.map(function (d) { var dt = new Date(d.fecha + 'T12:00:00'); return '<div>' + DIAS[(dt.getDay() + 6) % 7] + '<div class="d' + (d.cumplido ? ' si' : '') + '">' + (d.cumplido ? icono('check', ' style="width:18px;height:18px"') : '') + '</div></div>'; }).join('') + '</div>' +
-        '<div class="grid2" style="grid-template-columns:repeat(3,1fr);text-align:center"><div><p class="num" style="font-family:var(--titulo);font-size:22px;font-weight:600;color:var(--selva)">' + r.cierres + '/7</p><p class="sub" style="font-size:12px">cierres</p></div>' +
-        '<div><p style="font-family:var(--titulo);font-size:22px;font-weight:600;color:var(--selva)">' + r.minutos + '</p><p class="sub" style="font-size:12px">min en familia</p></div>' +
-        '<div><p style="font-family:var(--titulo);font-size:22px;font-weight:600;color:var(--selva)">' + r.totalActividades + '</p><p class="sub" style="font-size:12px">actividades</p></div></div></section>' +
-      '<section class="card"><h3>¿Cómo llegué esta semana?</h3>' + (totA ? ['Bien', 'Cansada/o', 'Muy cargada/o'].map(function (k, i) {
-        return '<div class="fila"><span style="width:110px;font-size:14px">' + k + '</span><div class="barra" style="flex:1"><div style="width:' + Math.round(an[k] / totA * 100) + '%;background:' + ['#3FA66B', '#F2B632', '#C8643F'][i] + '"></div></div><span class="sub" style="width:20px;text-align:right">' + an[k] + '</span></div>'; }).join('') : '<p class="sub">Haz el ritual “Llegué a casa” para ver tu ánimo de la semana.</p>') + '</section>' +
-      '<section class="card"><h3>Logros</h3><div class="logros">' + logros.map(function (l) { return '<div class="logro' + (l[1] ? ' si' : '') + '"><span class="medalla">' + icono(l[2]) + '</span>' + l[0] + '</div>'; }).join('') + '</div></section>' +
-      '<button class="btn" data-registrar="">' + icono('check') + 'Registrar mi día</button>' +
-      '<button class="btn sec" id="encuesta">' + icono('estrella') + 'Califica la app</button>', 'arbol');
-    $('#encuesta').onclick = encuesta;
-  });
+  var r = resumen(), n = nivelDe(r.totalCierres), sig = NIVELES[n + 1], prog = sig ? (r.totalCierres - NIVELES[n].min) / (sig.min - NIVELES[n].min) : 1;
+  var an = r.animos, totA = an['Bien'] + an['Cansada/o'] + an['Muy cargada/o'];
+  var logros = [
+    ['Primer cierre', r.totalCierres >= 1, 'check'], ['3 días seguidos', r.racha >= 3, 'fuego'], ['5 cierres en la semana', r.cierres >= 5, 'estrella'],
+    ['10 actividades', r.totalActividades >= 10, 'corazon'], ['4 vínculos distintos', r.vinculos >= 4, 'usuarios'], ['Árbol de la selva', n >= 4, 'arbol']
+  ];
+  pintar(
+    '<div class="fila entre"><div><p class="eyebrow">Progreso de la familia</p><h2>Mi árbol de la selva</h2></div><button class="avatares" data-perfil aria-label="Editar perfil de mi familia">' + todos().slice(0, 4).map(function (x) { return avatar(x, 38); }).join('') + '</button></div>' +
+    '<p class="sync" id="sync">' + textoSync() + '</p>' +
+    '<section class="card" style="align-items:center;text-align:center;background:linear-gradient(180deg,#E4F3E8,#fff)">' + arbolNivel(n, 220) +
+      '<h3 style="font-size:20px">' + NIVELES[n].nombre + '</h3><p class="sub">' + (sig ? 'Te faltan <b>' + (sig.min - r.totalCierres) + ' cierre' + (sig.min - r.totalCierres === 1 ? '' : 's') + '</b> para llegar a ' + sig.nombre : '¡Llegaron al nivel más alto!') + '</p>' +
+      '<div class="barra" style="width:100%" role="img" aria-label="Avance al siguiente nivel"><div style="width:' + Math.round(prog * 100) + '%"></div></div></section>' +
+    '<section class="card"><div class="fila entre"><h3>Esta semana</h3><span class="badge sol">' + icono('fuego', ' style="width:14px;height:14px"') + 'Racha ' + r.racha + '</span></div>' +
+      '<div class="semana-dias">' + r.dias.map(function (d) { var dt = new Date(d.fecha + 'T12:00:00'); return '<div>' + DIAS[(dt.getDay() + 6) % 7] + '<div class="d' + (d.cumplido ? ' si' : '') + '">' + (d.cumplido ? icono('check', ' style="width:18px;height:18px"') : '') + '</div></div>'; }).join('') + '</div>' +
+      '<div class="grid2" style="grid-template-columns:repeat(3,1fr);text-align:center"><div><p style="font-family:var(--titulo);font-size:22px;font-weight:600;color:var(--selva)">' + r.cierres + '/7</p><p class="sub" style="font-size:12px">cierres</p></div>' +
+      '<div><p style="font-family:var(--titulo);font-size:22px;font-weight:600;color:var(--selva)">' + r.minutos + '</p><p class="sub" style="font-size:12px">min en familia</p></div>' +
+      '<div><p style="font-family:var(--titulo);font-size:22px;font-weight:600;color:var(--selva)">' + r.totalActividades + '</p><p class="sub" style="font-size:12px">actividades</p></div></div></section>' +
+    '<section class="card"><h3>¿Cómo llegué esta semana?</h3>' + (totA ? ['Bien', 'Cansada/o', 'Muy cargada/o'].map(function (k, i) {
+      return '<div class="fila"><span style="width:110px;font-size:14px">' + k + '</span><div class="barra" style="flex:1"><div style="width:' + Math.round(an[k] / totA * 100) + '%;background:' + ['#3FA66B', '#F2B632', '#C8643F'][i] + '"></div></div><span class="sub" style="width:20px;text-align:right">' + an[k] + '</span></div>'; }).join('') : '<p class="sub">Haz el ritual “Llegué a casa” para ver tu ánimo de la semana.</p>') + '</section>' +
+    '<section class="card"><h3>Logros</h3><div class="logros">' + logros.map(function (l) { return '<div class="logro' + (l[1] ? ' si' : '') + '"><span class="medalla">' + icono(l[2]) + '</span>' + l[0] + '</div>'; }).join('') + '</div></section>' +
+    '<button class="btn" data-registrar="">' + icono('check') + 'Registrar mi día</button>' +
+    '<button class="btn sec" data-perfil>' + icono('usuarios') + 'Editar perfil de mi familia</button>' +
+    '<button class="btn sec" id="encuesta">' + icono('estrella') + 'Califica la app</button>', 'arbol');
+  $('#encuesta').onclick = encuesta;
 }
 function encuesta() {
   hoja('<h2>¿Qué te parece la app?</h2><p class="sub">Tu opinión nos ayuda a mejorarla.</p>' +
@@ -776,89 +1007,74 @@ function encuesta() {
     '<label>¿Qué mejorarías?<textarea id="eCom" rows="3" maxlength="500"></textarea></label><button class="btn" id="eOk">Enviar</button>', function (v) {
     ['#eSat', '#eRec'].forEach(function (id) { $(id, v).onclick = function (e) { var b = e.target.closest('button'); if (!b) return; $$('button', this).forEach(function (c) { c.setAttribute('aria-pressed', c === b); }); }; });
     $('#eOk', v).onclick = function () {
-      servidor('guardarEncuesta', estado.familia.familiaId, { satisfaccion: +$('#eSat [aria-pressed=true]', v).dataset.n, recomendaria: $('#eRec [aria-pressed=true]', v).dataset.r, comentario: $('#eCom', v).value })
-        .then(function () { v.remove(); avisar('¡Gracias por tu opinión!'); });
+      accion.encuesta({ satisfaccion: +$('#eSat [aria-pressed=true]', v).dataset.n, recomendaria: $('#eRec [aria-pressed=true]', v).dataset.r, comentario: $('#eCom', v).value });
+      v.remove(); avisar('¡Gracias por tu opinión!');
     };
   });
 }
 
-/* ---------------- Navegación ---------------- */
-var RUTAS = { hoy: vHoy, banco: vBanco, llegue: function () { vLlegue(1); }, semana: vSemana, arbol: vArbol };
+/* =================== Navegación =================== */
+var RUTAS = { hoy: vHoy, banco: vBanco, llegue: function () { ritual.enCurso = false; vLlegue(1); }, semana: vSemana, arbol: vArbol };
 document.addEventListener('click', function (e) {
+  if (e.target.closest('#btnInstalar')) return instalarApp();
   if (e.target.closest('.velo') && !e.target.closest('[data-ver],[data-registrar]')) return;
-  var ir = e.target.closest('[data-ir]'), ver = e.target.closest('[data-ver]'), reg = e.target.closest('[data-registrar]'), ed = e.target.closest('[data-editar]');
+  var ir = e.target.closest('[data-ir]'), ver = e.target.closest('[data-ver]'), reg = e.target.closest('[data-registrar]'),
+    per = e.target.closest('[data-perfil]'), rec = e.target.closest('[data-recordatorios]');
   if (ir && RUTAS[ir.dataset.ir]) { e.preventDefault(); clearInterval(temporizador); clearInterval(ritual.t); RUTAS[ir.dataset.ir](); }
   else if (ver) { e.preventDefault(); var v = document.querySelector('.velo'); if (v) v.remove(); vDetalle(ver.dataset.ver); }
   else if (reg) { e.preventDefault(); registrar(reg.dataset.registrar); }
-  else if (ed) { e.preventDefault(); vConfigurar(); }
+  else if (per) { e.preventDefault(); borrador = null; vPerfil(false); }
+  else if (rec) { e.preventDefault(); abrirRecordatorios(); }
 });
-function cargarTodo() {
-  var id = estado.familia.familiaId;
-  return Promise.all([servidor('obtenerMenu', id), servidor('obtenerResumen', id)]).then(function (r) { estado.menu = r[0] || {}; estado.resumen = r[1]; });
+
+/* =================== Demostración (?demo, sin servidor) =================== */
+function sembrarDemo() {
+  var h = ahora(), regs = [], hist = ['A11', 'A04', 'A18', 'A03', 'A05', 'A09', 'A12', 'A17', 'A10', 'A22', 'A14'];
+  for (var i = 11; i >= 1; i--) regs.push({ fecha: fechaDe(new Date(h.getTime() - i * 864e5)), cumplio: i !== 5, minutos: [20, 30, 15, 25, 20, 15, 25, 20, 15, 5, 10][i - 1], actividadId: hist[i - 1] });
+  DB = { familia: { familiaId: 'DEMO', titular: { id: 'yo', nombre: 'Rosa Zevallos', rol: 'Mamá', edad: '' },
+      integrantes: [{ id: 'P1', nombre: 'Julio', rol: 'Pareja', edad: '38' }, { id: 'P2', nombre: 'Valeria', rol: 'Hija', edad: '11' }, { id: 'P3', nombre: 'Mía', rol: 'Hija', edad: '6' }],
+      horaCierre: '19:00', dias: 'LMXJVS' },
+    actividades: null, url: '',
+    menu: { L: { id: 'A18', nombre: 'Pausa activa juntos' }, M: { id: 'A11', nombre: 'Manualidad o dibujo juntos' }, X: { id: 'A12', nombre: 'Juego activo' }, V: { id: 'A04', nombre: 'Noche de juegos' }, S: { id: 'A03', nombre: 'Salida verde' }, D: { id: 'A06', nombre: 'Planificar la semana' } },
+    registros: regs, checkins: [{ fecha: fechaDe(h), animo: 'Bien' }, { fecha: fechaDe(h), animo: 'Cansada/o' }, { fecha: fechaDe(h), animo: 'Cansada/o' }, { fecha: fechaDe(h), animo: 'Muy cargada/o' }] };
+  guardarDB();
 }
 
-/* ---------------- Simulador (cuando el archivo se abre fuera de Apps Script) ---------------- */
-var SIM = (function () {
-  var K = 'mef_demo_v2', mem;
-  function leer() { try { return JSON.parse(localStorage.getItem(K)); } catch (e) { return null; } }
-  function grabar() { try { localStorage.setItem(K, JSON.stringify(mem)); } catch (e) {} }
-  function fecha(d) { return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
-  mem = leer() || { fam: null, menu: {}, reg: [], chk: [] };
-  if (/[?&]demo/.test(location.search)) {
-    var h = ahora(), r = [];
-    var hist = ['A11', 'A04', 'A18', 'A03', 'A05', 'A09', 'A12', 'A17', 'A10', 'A22', 'A14'];
-    for (var i = 11; i >= 1; i--) { var d = new Date(h.getTime() - i * 864e5); r.push({ fecha: fecha(d), cumplio: i !== 5, minutos: [20, 30, 15, 25, 20, 15, 25, 20, 15, 5, 10][i - 1], actividadId: hist[i - 1] }); }
-    mem = { fam: { familiaId: 'DEMO', iniciales: 'R. Z.', edades: '11, 6', horaCierre: '19:00', dias: 'LMXJVS' },
-      menu: { L: { id: 'A18', nombre: 'Pausa activa juntos' }, M: { id: 'A11', nombre: 'Manualidad o dibujo juntos' }, X: { id: 'A12', nombre: 'Juego activo' }, V: { id: 'A04', nombre: 'Noche de juegos' }, S: { id: 'A03', nombre: 'Salida verde' }, D: { id: 'A06', nombre: 'Planificar la semana' } },
-      reg: r, chk: [{ fecha: fecha(h), animo: 'Bien' }, { fecha: fecha(h), animo: 'Cansada/o' }, { fecha: fecha(h), animo: 'Cansada/o' }, { fecha: fecha(h), animo: 'Muy cargada/o' }] };
-    grabar(); guardarLocal('mef_familiaId', 'DEMO');
+/* =================== Arranque =================== */
+function aplicarServidor(r) {
+  if (!r) return false;
+  var antes = JSON.stringify([DB.actividades, DB.familia, DB.menu, DB.registros.length, DB.checkins.length]);
+  if (r.actividades && r.actividades.length) DB.actividades = r.actividades;
+  if (r.url) DB.url = r.url;
+  if (!COLA.length && r.familia) {
+    var local = DB.familia;
+    DB.familia = r.familia;
+    if (local && local.titular && r.familia.titular) r.familia.titular.id = 'yo';
+    DB.menu = r.menu || {}; DB.registros = r.registros || []; DB.checkins = r.checkins || [];
   }
-  function resumen() {
-    var vinc = {}; BANCO_BASE.forEach(function (a) { vinc[a.id] = a.vinculo; });
-    var hoy = fecha(ahora()), base = new Date(hoy + 'T12:00:00Z').getTime(), semana = [];
-    for (var i = 6; i >= 0; i--) semana.push(new Date(base - i * 864e5).toISOString().slice(0, 10));
-    var cs = {}, ct = {}, min = 0, acts = 0, vs = {};
-    mem.reg.forEach(function (x) {
-      if (x.cumplio) ct[x.fecha] = true;
-      if (x.actividadId) { acts++; vs[vinc[x.actividadId]] = true; }
-      if (semana.indexOf(x.fecha) > -1) { if (x.cumplio) cs[x.fecha] = true; min += x.minutos; }
-    });
-    var an = { 'Bien': 0, 'Cansada/o': 0, 'Muy cargada/o': 0 };
-    mem.chk.forEach(function (c) { if (semana.indexOf(c.fecha) > -1) an[c.animo]++; });
-    var racha = 0, d = base; if (!ct[hoy]) d -= 864e5;
-    while (ct[new Date(d).toISOString().slice(0, 10)]) { racha++; d -= 864e5; }
-    return { dias: semana.map(function (f) { return { fecha: f, cumplido: !!cs[f] }; }), cierres: Object.keys(cs).length, minutos: min, racha: racha,
-      totalCierres: Object.keys(ct).length, totalActividades: acts, vinculos: Object.keys(vs).length, animos: an };
-  }
-  return {
-    obtenerActividades: function () { return BANCO_BASE; },
-    obtenerFamilia: function (id) { return mem.fam && mem.fam.familiaId === id ? mem.fam : null; },
-    guardarConfiguracion: function (d) { mem.fam = { familiaId: d.familiaId || 'LOCAL', iniciales: d.iniciales.toUpperCase(), edades: d.edades.join(', '), horaCierre: d.horaCierre, dias: d.dias.join('') }; grabar(); return mem.fam; },
-    agregarAlMenu: function (id, dia, a) { mem.menu[dia] = a; grabar(); return mem.menu; },
-    quitarDelMenu: function (id, dia) { delete mem.menu[dia]; grabar(); return mem.menu; },
-    obtenerMenu: function () { return mem.menu; },
-    guardarCheckin: function (id, d) { mem.chk.push({ fecha: fecha(ahora()), animo: d.animo }); grabar(); return true; },
-    guardarRegistro: function (id, d) { mem.reg.push({ fecha: fecha(ahora()), cumplio: d.cumplioCierre, minutos: +d.minutosFamilia || 0, actividadId: d.actividadId }); grabar(); return resumen(); },
-    guardarEncuesta: function () { return true; },
-    obtenerResumen: resumen
-  };
-})();
-
+  guardarDB();
+  return antes !== JSON.stringify([DB.actividades, DB.familia, DB.menu, DB.registros.length, DB.checkins.length]);
+}
 ES_PWA = true;
-window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); eventoInstalar = e; });
+window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); eventoInstalar = e; var b = document.getElementById('btnInstalar'); if (b) b.style.display = ''; });
 window.addEventListener('appinstalled', function () { var b = document.getElementById('btnInstalar'); if (b) b.remove(); });
 if ('serviceWorker' in navigator) window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
-/* ---------------- Arranque ---------------- */
-$('#pantalla').innerHTML = '<div style="min-height:70vh;display:flex;align-items:center;justify-content:center;color:var(--selva)">' + icono('hoja', ' style="width:48px;height:48px"') + '</div>';
-servidor('obtenerActividades').then(function (acts) {
-  estado.actividades = (acts && acts.length) ? acts : BANCO_BASE;
-  var id = leerLocal('mef_familiaId');
-  if (!id) return vBienvenida();
-  return servidor('obtenerFamilia', id).then(function (f) {
-    if (!f) return vBienvenida();
-    estado.familia = f; return cargarTodo().then(vHoy);
-  });
-});
+(function arrancar() {
+  if (/[?&]demo/.test(location.search) && !hayServidor()) sembrarDemo();
+  var idAnterior = DB.familia ? DB.familia.familiaId : (leerLocal('mef_familiaId') || '');
+  if (DB.familia) vHoy();
+  else if (idAnterior && hayServidor()) $('#pantalla').innerHTML = '<div style="min-height:70vh;display:flex;align-items:center;justify-content:center;color:var(--selva)">' + icono('hoja', ' style="width:48px;height:48px"') + '</div>';
+  else vBienvenida();
+  if (hayServidor()) {
+    llamar('iniciar', [idAnterior]).then(function (r) {
+      var cambio = aplicarServidor(r), hayModal = !!document.querySelector('.velo');
+      if (!DB.familia) { if (estado.vista === null && !$('#fPerfil')) vBienvenida(); }
+      else if (!estado.vista && !$('#fPerfil')) vHoy();
+      else if (cambio && estado.vista === 'hoy' && !hayModal) vHoy();
+      procesarCola();
+    }).catch(function () { if (!DB.familia && !$('#fPerfil')) vBienvenida(); procesarCola(); });
+  }
+})();
 </script>
 </body>
 </html>
