@@ -1,0 +1,11 @@
+MOMENTOS EN FAMILIA · Versión instalable
+Grupo 1 · Creatividad e Innovación (UTP)
+
+Archivos de esta carpeta (súbelos TODOS a GitHub, sin cambiarles el nombre):
+  index.html            → la app
+  config.js             → aquí va el enlace /exec de Apps Script (único archivo que se edita)
+  manifest.webmanifest  → nombre, colores e ícono de la app instalada
+  sw.js                 → permite abrir la app rápido y sin señal
+  icons/                → íconos de la app (carpeta con 4 imágenes)
+
+La guía paso a paso está en el chat con Claude.
