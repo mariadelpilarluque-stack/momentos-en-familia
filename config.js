@@ -7,4 +7,4 @@
 //  Si lo dejas vacío, la app funciona en "modo demostración":
 //  los datos solo se guardan en ese celular.
 // ============================================================
-window.MEF_API_URL = '';
+window.MEF_API_URL = 'https://script.google.com/macros/s/AKfycbx2qdd_jsmLWJiqbIbFLvADGpOTRb1A3ellirLLn33rThOgVuwEYH4uCd1_UmwrJeil/exec';
